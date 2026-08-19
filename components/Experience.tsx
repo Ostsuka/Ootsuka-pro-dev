@@ -1,10 +1,10 @@
 'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Briefcase, Calendar, Users, ChevronDown, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Briefcase, Calendar, Users, ChevronDown, CheckCircle2, ArrowRight, Building2, Rocket } from 'lucide-react';
 import WaveBackground from './backgrounds/WaveBackground';
 
-/* ── Data ───────────────────────────────────────── */
+/* ── Data ────────────────────────────────────────── */
 interface Project {
   title: string;
   overview: string;
@@ -33,12 +33,12 @@ const EXPERIENCE: Job[] = [
     companyEn: 'Acer Inc.',
     role: 'フルスタックエンジニア',
     type: '正社員',
-    typeColor: '#00c8f0',
-    color: '#00c8f0',
+    typeColor: '#00d4ff',
+    color: '#00d4ff',
     projects: [
       {
-        title: 'クラウド対応 業務Webシステム開発',
-        overview: 'TypeScript / React / Node.js スタックの企業向けWebアプリを要件定義からAWSデプロイまで一貫担当。',
+        title: 'クラウド対応 業務 Web システム開発',
+        overview: 'TypeScript / React / Node.js スタックの企業向け Web アプリを要件定義から AWS デプロイまで一貫担当。',
         tasks: [
           'フロントエンド・バックエンド双方の設計・開発',
           'REST API 設計・実装およびデータベース設計',
@@ -80,12 +80,12 @@ const EXPERIENCE: Job[] = [
     companyEn: 'Systex Corporation',
     role: 'バックエンドエンジニア',
     type: '業務委託 → 正社員登用',
-    typeColor: '#8b5cf6',
-    color: '#8b5cf6',
+    typeColor: '#a78bfa',
+    color: '#a78bfa',
     projects: [
       {
         title: '製造・流通業向け 写真・点検帳票管理システム',
-        overview: '製造・流通業向けの写真データ管理と点検帳票を一元管理するシステムの開発・保守。25名体制での大規模チーム開発。',
+        overview: '製造・流通業向けの写真データ管理と点検帳票を一元管理するシステムの開発・保守。25 名体制での大規模チーム開発。',
         tasks: [
           'PHP（Laravel）による API 開発・機能追加',
           'React / JavaScript による管理画面改修',
@@ -114,7 +114,7 @@ const EXPERIENCE: Job[] = [
           'レガシーシステム解析・機能改修・API 実装を担当',
           'AWS 環境への移行・安定稼働に貢献',
         ],
-        stack: ['Java', 'Spring Boot', 'React', 'PostgreSQL', 'Docker', 'AWS ECS', 'Fargate', 'RDS', 'CloudWatch', 'GitHub Actions'],
+        stack: ['Java', 'Spring Boot', 'React', 'PostgreSQL', 'Docker', 'AWS ECS', 'Fargate', 'RDS', 'CloudWatch'],
         team: '3〜5名',
       },
     ],
@@ -149,96 +149,114 @@ const EXPERIENCE: Job[] = [
   },
 ];
 
-/* ── Project accordion item ─────────────────────── */
+/* ── Project accordion ───────────────────────────── */
 function ProjectCard({ proj, color, index }: { proj: Project; color: string; index: number }) {
   const [open, setOpen] = useState(index === 0);
+
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.08 }}
       className="rounded-xl overflow-hidden"
-      style={{ background: 'rgba(5,8,16,0.5)', border: '1px solid rgba(255,255,255,0.06)' }}
+      style={{
+        background: open ? `${color}06` : 'rgba(4,7,15,0.5)',
+        border: `1px solid ${open ? color + '22' : 'rgba(255,255,255,0.05)'}`,
+        transition: 'background 0.3s, border-color 0.3s',
+      }}
     >
-      {/* Header */}
+      {/* Accordion header */}
       <button
         className="w-full flex items-start justify-between p-4 text-left gap-3 transition-colors"
-        style={{ background: open ? `${color}08` : 'transparent' }}
         onClick={() => setOpen(o => !o)}
       >
-        <div className="flex items-start gap-2 min-w-0">
-          <ArrowRight
-            size={14}
-            className="flex-shrink-0 mt-0.5 transition-transform"
-            style={{ color, transform: open ? 'rotate(90deg)' : 'none' }}
-          />
-          <span className="text-sm font-semibold" style={{ color: '#e2e8f0' }}>{proj.title}</span>
+        <div className="flex items-start gap-2.5 min-w-0">
+          <motion.div
+            animate={{ rotate: open ? 90 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <ArrowRight size={13} className="flex-shrink-0 mt-0.5" style={{ color }} />
+          </motion.div>
+          <span className="text-sm font-bold leading-snug" style={{ color: '#e2e8f0' }}>{proj.title}</span>
         </div>
-        <ChevronDown
-          size={14}
-          className="flex-shrink-0 mt-0.5 transition-transform"
-          style={{ color: '#475569', transform: open ? 'rotate(180deg)' : 'none' }}
-        />
+        <motion.div
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="flex-shrink-0 mt-0.5"
+        >
+          <ChevronDown size={14} style={{ color: '#3d5470' }} />
+        </motion.div>
       </button>
 
-      {/* Body */}
+      {/* Accordion body */}
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
             style={{ overflow: 'hidden' }}
           >
-            <div className="px-4 pb-4 space-y-4">
-              <p className="text-xs leading-6" style={{ color: '#94a3b8' }}>{proj.overview}</p>
+            <div className="px-5 pb-5 space-y-4">
+              <p className="text-xs leading-6" style={{ color: '#8fa3bf' }}>{proj.overview}</p>
 
-              {/* Tasks */}
-              <div>
-                <div className="text-[10px] font-mono tracking-widest mb-2" style={{ color: '#475569' }}>TASKS</div>
-                <ul className="space-y-1.5">
-                  {proj.tasks.map((t, i) => (
-                    <li key={i} className="flex gap-2 text-xs" style={{ color: '#94a3b8' }}>
-                      <span style={{ color, flexShrink: 0 }}>▸</span>
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {/* Tasks */}
+                <div>
+                  <div className="text-[9px] font-bold tracking-widest mb-2" style={{ color: '#3d5470', fontFamily: 'monospace' }}>
+                    TASKS
+                  </div>
+                  <ul className="space-y-1.5">
+                    {proj.tasks.map((t, i) => (
+                      <li key={i} className="flex gap-2 text-[12px] leading-5" style={{ color: '#8fa3bf' }}>
+                        <span style={{ color, flexShrink: 0, marginTop: '2px' }}>▸</span>
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-              {/* Achievements */}
-              <div>
-                <div className="text-[10px] font-mono tracking-widest mb-2" style={{ color: '#475569' }}>ACHIEVEMENTS</div>
-                <ul className="space-y-1.5">
-                  {proj.achievements.map((a, i) => (
-                    <li key={i} className="flex gap-2 text-xs" style={{ color: '#10b981' }}>
-                      <CheckCircle2 size={13} className="flex-shrink-0 mt-0.5" />
-                      {a}
-                    </li>
-                  ))}
-                </ul>
+                {/* Achievements */}
+                <div>
+                  <div className="text-[9px] font-bold tracking-widest mb-2" style={{ color: '#3d5470', fontFamily: 'monospace' }}>
+                    ACHIEVEMENTS
+                  </div>
+                  <ul className="space-y-1.5">
+                    {proj.achievements.map((a, i) => (
+                      <li key={i} className="flex gap-2 text-[12px] leading-5" style={{ color: '#10b981' }}>
+                        <CheckCircle2 size={12} className="flex-shrink-0 mt-0.5" />
+                        {a}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
               {/* Stack + team */}
-              <div className="flex flex-wrap gap-1.5">
-                {proj.stack.map(s => (
-                  <span key={s} className="tag-neutral" style={{ fontSize: '0.67rem', padding: '0.15rem 0.5rem' }}>{s}</span>
-                ))}
-              </div>
-              <div className="flex items-center gap-1.5 text-xs" style={{ color: '#334155' }}>
-                <Users size={11} />
-                <span>チーム規模: {proj.team}</span>
+              <div className="pt-2 space-y-2">
+                <div className="flex flex-wrap gap-1.5">
+                  {proj.stack.map(s => (
+                    <span key={s} className="tag-neutral">{s}</span>
+                  ))}
+                </div>
+                <div className="flex items-center gap-1.5 text-[11px]" style={{ color: '#3d5470', fontFamily: 'monospace' }}>
+                  <Users size={11} />
+                  <span>チーム規模: {proj.team}</span>
+                </div>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }
 
 /* ── Main ────────────────────────────────────────── */
 export default function Experience() {
   return (
-    <section id="experience" className="section relative" style={{ background: '#080d1a' }}>
+    <section id="experience" className="section relative" style={{ background: '#070c18' }}>
       <WaveBackground />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
@@ -246,93 +264,138 @@ export default function Experience() {
         {/* Header */}
         <motion.div
           className="text-center mb-20"
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
         >
           <p className="section-label justify-center">WORK EXPERIENCE</p>
-          <h2 className="text-4xl md:text-5xl font-black mt-2 mb-3" style={{ color: '#f1f5f9' }}>
+          <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3" style={{ color: '#f0f6ff' }}>
             職務経歴
           </h2>
           <div className="divider" />
+          <p className="mt-5 text-sm max-w-md mx-auto" style={{ color: '#3d5470' }}>
+            正社員・業務委託・フリーランスと多様な形態での開発実績
+          </p>
         </motion.div>
 
-        {/* Timeline */}
+        {/* ── Timeline ── */}
         <div className="relative">
-          {/* Vertical line */}
+
+          {/* Vertical timeline line */}
           <div
-            className="absolute left-5 top-0 bottom-0 w-px hidden sm:block"
+            className="absolute hidden sm:block"
             style={{
-              background: 'linear-gradient(to bottom, rgba(0,200,240,0.4) 0%, rgba(139,92,246,0.4) 50%, rgba(16,185,129,0.4) 100%)',
+              left: '28px',
+              top: '28px',
+              bottom: '28px',
+              width: '2px',
+              background: 'linear-gradient(to bottom, #00d4ff66, #a78bfa66 50%, #10b98166)',
+              borderRadius: '2px',
             }}
           />
 
           {EXPERIENCE.map((job, ji) => (
             <motion.div
               key={ji}
-              initial={{ opacity: 0, x: -24 }}
+              initial={{ opacity: 0, x: -28 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-60px' }}
-              transition={{ delay: ji * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="relative sm:pl-16 mb-14 last:mb-0"
+              transition={{ delay: ji * 0.12, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+              className="relative sm:pl-20 mb-12 last:mb-0"
             >
               {/* Timeline dot */}
               <div
-                className="absolute left-5 top-6 w-4 h-4 rounded-full -translate-x-1/2 hidden sm:block z-10"
+                className="absolute hidden sm:flex items-center justify-center"
                 style={{
+                  left: '28px',
+                  top: '28px',
+                  width: '18px',
+                  height: '18px',
+                  borderRadius: '50%',
+                  transform: 'translate(-50%, -50%)',
                   background: job.color,
-                  boxShadow: `0 0 0 3px rgba(5,8,16,1), 0 0 12px ${job.color}80`,
-                  border: `2px solid ${job.color}`,
+                  boxShadow: `0 0 0 4px rgba(4,7,15,1), 0 0 16px ${job.color}88`,
+                  zIndex: 10,
                 }}
-              />
+              >
+                <div className="w-2 h-2 rounded-full bg-white opacity-80" />
+              </div>
+
+              {/* Duration badge on line */}
+              <div
+                className="absolute hidden sm:flex items-center"
+                style={{ left: '52px', top: '22px' }}
+              >
+                <div
+                  className="text-[9px] px-2 py-0.5 rounded font-bold"
+                  style={{
+                    background: `${job.color}14`,
+                    color: job.color,
+                    border: `1px solid ${job.color}28`,
+                    fontFamily: 'monospace',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {job.duration}
+                </div>
+              </div>
 
               {/* Job card */}
               <div
                 className="rounded-2xl overflow-hidden"
                 style={{
-                  background: 'rgba(14,22,40,0.75)',
+                  background: 'rgba(11,18,34,0.80)',
                   border: `1px solid ${job.color}20`,
-                  backdropFilter: 'blur(12px)',
+                  backdropFilter: 'blur(16px)',
+                  boxShadow: `0 4px 32px rgba(0,0,0,0.4), 0 0 0 1px ${job.color}10`,
                 }}
               >
+                {/* Top accent line */}
+                <div className="h-[2px]" style={{ background: `linear-gradient(90deg, ${job.color}, ${job.color}44, transparent)` }} />
+
                 {/* Company header */}
-                <div
-                  className="px-6 py-5"
-                  style={{ borderBottom: `1px solid ${job.color}12` }}
-                >
+                <div className="px-6 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                   <div className="flex flex-wrap items-start justify-between gap-4">
                     <div className="flex items-start gap-4">
                       {/* Company icon */}
                       <div
                         className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                        style={{ background: `${job.color}18`, border: `1px solid ${job.color}25` }}
+                        style={{
+                          background: `${job.color}14`,
+                          border: `1px solid ${job.color}28`,
+                          boxShadow: `0 0 20px ${job.color}14`,
+                        }}
                       >
-                        <Briefcase size={20} style={{ color: job.color }} />
+                        {ji === 2 ? <Rocket size={20} style={{ color: job.color }} /> : <Building2 size={20} style={{ color: job.color }} />}
                       </div>
+
                       <div>
                         <div className="flex items-center gap-2 flex-wrap mb-1">
-                          <h3 className="text-base font-black" style={{ color: '#f1f5f9' }}>{job.company}</h3>
+                          <h3 className="text-base font-black" style={{ color: '#f0f6ff' }}>{job.company}</h3>
                           <span
-                            className="text-[10px] font-mono px-2 py-0.5 rounded-full"
-                            style={{ background: `${job.typeColor}15`, color: job.typeColor, border: `1px solid ${job.typeColor}30` }}
+                            className="text-[10px] font-bold px-2.5 py-0.5 rounded-full"
+                            style={{
+                              background: `${job.typeColor}12`,
+                              color: job.typeColor,
+                              border: `1px solid ${job.typeColor}30`,
+                              fontFamily: 'monospace',
+                            }}
                           >
                             {job.type}
                           </span>
                         </div>
-                        <div className="text-xs mb-1" style={{ color: '#475569' }}>{job.companyEn}</div>
-                        <div className="text-sm font-semibold" style={{ color: job.color }}>{job.role}</div>
+                        <div className="text-xs mb-1" style={{ color: '#3d5470', fontFamily: 'monospace' }}>{job.companyEn}</div>
+                        <div className="text-sm font-bold" style={{ color: job.color }}>{job.role}</div>
                       </div>
                     </div>
 
                     <div className="text-right flex-shrink-0">
-                      <div className="flex items-center gap-1.5 text-xs mb-1" style={{ color: '#475569' }}>
+                      <div className="flex items-center gap-1.5 text-xs mb-2 justify-end" style={{ color: '#3d5470' }}>
                         <Calendar size={11} />
-                        <span className="font-mono">{job.period}</span>
+                        <span style={{ fontFamily: 'monospace' }}>{job.period}</span>
                       </div>
-                      <span
-                        className="text-xs font-mono px-2 py-0.5 rounded"
-                        style={{ background: 'rgba(255,255,255,0.04)', color: '#64748b', border: '1px solid rgba(255,255,255,0.07)' }}
-                      >
-                        {job.duration}
-                      </span>
+                      <div className="flex items-center gap-1.5 text-xs" style={{ color: '#3d5470' }}>
+                        <Briefcase size={11} />
+                        <span style={{ fontFamily: 'monospace' }}>{job.projects.length} project{job.projects.length > 1 ? 's' : ''}</span>
+                      </div>
                     </div>
                   </div>
                 </div>

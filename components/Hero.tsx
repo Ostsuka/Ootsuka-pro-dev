@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowDown, Code2, Server, Cloud, Sparkles } from 'lucide-react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { ArrowDown, Code2, Server, Cloud, Sparkles, Terminal, GitBranch } from 'lucide-react';
 import ParticleNetwork from './backgrounds/ParticleNetwork';
 
 /* ── Typewriter ─────────────────────────────────── */
@@ -23,13 +23,12 @@ function TypeWriter() {
   useEffect(() => {
     const current = ROLES[idx];
     let timer: ReturnType<typeof setTimeout>;
-
     if (!deleting && charIdx <= current.length) {
-      timer = setTimeout(() => { setDisplay(current.slice(0, charIdx)); setCharIdx(c => c + 1); }, 68);
+      timer = setTimeout(() => { setDisplay(current.slice(0, charIdx)); setCharIdx(c => c + 1); }, 70);
     } else if (!deleting && charIdx > current.length) {
-      timer = setTimeout(() => setDeleting(true), 2000);
+      timer = setTimeout(() => setDeleting(true), 2200);
     } else if (deleting && charIdx > 0) {
-      timer = setTimeout(() => { setDisplay(current.slice(0, charIdx - 1)); setCharIdx(c => c - 1); }, 32);
+      timer = setTimeout(() => { setDisplay(current.slice(0, charIdx - 1)); setCharIdx(c => c - 1); }, 34);
     } else {
       setDeleting(false);
       setIdx(i => (i + 1) % ROLES.length);
@@ -38,85 +37,109 @@ function TypeWriter() {
   }, [charIdx, deleting, idx]);
 
   return (
-    <span style={{ color: '#00c8f0' }}>
+    <span style={{ color: '#00d4ff' }}>
       {display}
-      <span className="animate-blink" style={{ borderRight: '2px solid #00c8f0', marginLeft: '1px' }}>&nbsp;</span>
+      <span className="animate-blink" style={{ borderRight: '2px solid #00d4ff', marginLeft: '2px' }}>&nbsp;</span>
     </span>
   );
 }
 
-/* ── Floating tech badges ───────────────────────── */
+/* ── Floating badges ─────────────────────────────── */
 const BADGES = [
-  { label: 'React',       color: '#61dafb', x: '7%',  y: '22%', d: 0   },
-  { label: 'TypeScript',  color: '#3178c6', x: '84%', y: '20%', d: 0.5 },
-  { label: 'Java',        color: '#f89820', x: '5%',  y: '66%', d: 1.0 },
-  { label: 'AWS',         color: '#ff9900', x: '87%', y: '63%', d: 1.5 },
-  { label: 'NestJS',      color: '#e0234e', x: '78%', y: '42%', d: 0.8 },
-  { label: 'Docker',      color: '#2496ed', x: '14%', y: '44%', d: 1.3 },
-  { label: 'Laravel',     color: '#ff2d20', x: '48%', y: '86%', d: 1.8 },
-  { label: 'PostgreSQL',  color: '#336791', x: '22%', y: '78%', d: 2.2 },
+  { label: 'React',       color: '#61dafb', x: '5%',  y: '20%', delay: 0.0 },
+  { label: 'TypeScript',  color: '#3178c6', x: '82%', y: '18%', delay: 0.6 },
+  { label: 'Java',        color: '#f89820', x: '3%',  y: '62%', delay: 1.1 },
+  { label: 'AWS',         color: '#ff9900', x: '86%', y: '60%', delay: 1.6 },
+  { label: 'NestJS',      color: '#e0234e', x: '76%', y: '38%', delay: 0.9 },
+  { label: 'Docker',      color: '#2496ed', x: '11%', y: '42%', delay: 1.4 },
+  { label: 'Laravel',     color: '#ff2d20', x: '46%', y: '88%', delay: 1.9 },
+  { label: 'PostgreSQL',  color: '#336791', x: '20%', y: '80%', delay: 2.3 },
 ];
 
 /* ── Stats ──────────────────────────────────────── */
 const STATS = [
-  { icon: <Code2 size={15} />, value: '5+',        label: '年の開発経験' },
-  { icon: <Server size={15} />, value: '10+',      label: '使用技術・FW'  },
-  { icon: <Cloud size={15} />,  value: 'AWS',      label: 'クラウド運用'  },
-  { icon: <Sparkles size={15} />, value: '30%↑',  label: '業務改善実績'  },
+  { icon: <Code2 size={14} />,     value: '5+',     label: '年の経験',   color: '#00d4ff' },
+  { icon: <Server size={14} />,    value: '10+',    label: '技術スタック', color: '#a78bfa' },
+  { icon: <Cloud size={14} />,     value: 'AWS',    label: 'クラウド',   color: '#ff9900' },
+  { icon: <Sparkles size={14} />,  value: '30%↑',  label: '業務改善',   color: '#10b981' },
+];
+
+/* ── Code snippet lines ─────────────────────────── */
+const CODE_LINES = [
+  { text: 'const engineer = {',            color: '#e2e8f0' },
+  { text: '  name: "URAN",',               color: '#94a3b8' },
+  { text: '  role: "Full-Stack",',         color: '#94a3b8' },
+  { text: '  stack: ["React", "Java"],',   color: '#94a3b8' },
+  { text: '  available: true,',            color: '#10b981' },
+  { text: '};',                            color: '#e2e8f0' },
 ];
 
 /* ── Component ──────────────────────────────────── */
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const yContent = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const opacity  = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const yContent = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const opacity  = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
 
   return (
     <section
       id="hero"
       ref={ref}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: 'linear-gradient(160deg, #050810 0%, #08101f 50%, #07091a 100%)' }}
+      style={{ background: 'linear-gradient(160deg, #040810 0%, #070c1a 45%, #06091a 100%)' }}
     >
-      {/* Particle canvas */}
+      {/* ── Background layers ── */}
       <ParticleNetwork />
 
-      {/* Deep radial spotlight */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 90% 70% at 50% 35%, rgba(0,200,240,0.06) 0%, rgba(139,92,246,0.04) 40%, transparent 70%)',
-        }}
-      />
+      {/* Radial center glow */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: 'radial-gradient(ellipse 80% 65% at 50% 40%, rgba(0,212,255,0.055) 0%, rgba(124,58,237,0.035) 45%, transparent 72%)',
+      }} />
 
-      {/* Top-right accent orb */}
-      <div
-        className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 65%)' }}
-      />
-      {/* Bottom-left accent orb */}
-      <div
-        className="absolute -bottom-40 -left-24 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(0,200,240,0.06) 0%, transparent 65%)' }}
-      />
+      {/* Top-right orb */}
+      <div className="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full pointer-events-none" style={{
+        background: 'radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 65%)',
+      }} />
 
-      {/* Floating badges — desktop only */}
+      {/* Bottom-left orb */}
+      <div className="absolute -bottom-48 -left-24 w-[600px] h-[600px] rounded-full pointer-events-none" style={{
+        background: 'radial-gradient(circle, rgba(0,212,255,0.05) 0%, transparent 65%)',
+      }} />
+
+      {/* Horizontal scan line */}
+      {mounted && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="animate-scan absolute left-0 right-0 h-px" style={{
+            background: 'linear-gradient(90deg, transparent 0%, rgba(0,212,255,0.3) 20%, rgba(0,212,255,0.5) 50%, rgba(0,212,255,0.3) 80%, transparent 100%)',
+          }} />
+        </div>
+      )}
+
+      {/* ── Floating badges — desktop only ── */}
       {BADGES.map(b => (
         <motion.div
           key={b.label}
-          className="absolute hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold select-none"
+          className="absolute hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold select-none"
           style={{
             left: b.x, top: b.y,
-            background: `${b.color}12`,
-            border: `1px solid ${b.color}35`,
+            background: `${b.color}0e`,
+            border: `1px solid ${b.color}32`,
             color: b.color,
             zIndex: 5,
+            backdropFilter: 'blur(8px)',
           }}
-          animate={{ y: [0, -9, 0] }}
-          transition={{ duration: 3.5 + b.d, repeat: Infinity, ease: 'easeInOut', delay: b.d }}
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
+          transition={{
+            opacity: { delay: b.delay + 0.8, duration: 0.5 },
+            scale:   { delay: b.delay + 0.8, duration: 0.5 },
+            y: { duration: 3.5 + b.delay * 0.4, repeat: Infinity, ease: 'easeInOut', delay: b.delay },
+          }}
         >
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: b.color, boxShadow: `0 0 6px ${b.color}` }} />
           {b.label}
         </motion.div>
       ))}
@@ -126,82 +149,85 @@ export default function Hero() {
         style={{ y: yContent, opacity }}
         className="relative z-10 text-center px-6 max-w-4xl mx-auto"
       >
-        {/* Avatar ring */}
+        {/* ── Avatar / profile ring ── */}
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mx-auto mb-10 w-32 h-32"
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mx-auto mb-10 w-36 h-36"
         >
-          {/* Outer pulse ring */}
+          {/* Outermost pulse ring */}
           <motion.div
-            className="absolute inset-[-8px] rounded-full"
-            style={{ border: '1px solid rgba(0,200,240,0.15)' }}
-            animate={{ scale: [1, 1.12, 1], opacity: [0.6, 0.2, 0.6] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute rounded-full"
+            style={{
+              inset: '-18px',
+              border: '1px solid rgba(0,212,255,0.12)',
+            }}
+            animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.12, 0.5] }}
+            transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          {/* Second ring */}
+          <motion.div
+            className="absolute rounded-full"
+            style={{
+              inset: '-8px',
+              border: '1px solid rgba(0,212,255,0.22)',
+            }}
+            animate={{ scale: [1, 1.08, 1], opacity: [0.6, 0.2, 0.6] }}
+            transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
           />
           {/* Spinning dashed ring */}
           <motion.div
-            className="absolute inset-[-2px] rounded-full"
-            style={{ border: '1.5px dashed rgba(0,200,240,0.35)' }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
-          />
-          {/* Orbiting dot */}
-          <motion.div
-            className="absolute w-3.5 h-3.5 rounded-full"
+            className="absolute rounded-full"
             style={{
-              top: '50%', left: '50%',
-              marginTop: '-7px', marginLeft: '-7px',
-              background: '#10b981',
-              boxShadow: '0 0 10px #10b981',
-              transformOrigin: '7px 7px',
+              inset: '-4px',
+              border: '1.5px dashed rgba(0,212,255,0.30)',
             }}
             animate={{ rotate: 360 }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
-            // use CSS orbit: set translateX inside rotate
+            transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
+          />
+          {/* Counter-spinning ring */}
+          <motion.div
+            className="absolute rounded-full"
+            style={{
+              inset: '8px',
+              border: '1px dashed rgba(124,58,237,0.25)',
+            }}
+            animate={{ rotate: -360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          />
+
+          {/* Orbiting dot */}
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              top: '50%', left: '50%',
+              width: '12px', height: '12px',
+              marginTop: '-6px', marginLeft: '-6px',
+              animation: 'orbit-dot 5.5s linear infinite',
+            }}
           >
-            <style>{`
-              @keyframes orbit-dot {
-                from { transform: rotate(0deg) translateX(62px) rotate(0deg); }
-                to   { transform: rotate(360deg) translateX(62px) rotate(-360deg); }
-              }
-            `}</style>
-          </motion.div>
-          {/* Orbit wrapper hack */}
-          <div className="absolute inset-0 rounded-full" style={{ animation: 'none' }}>
-            <div
-              style={{
-                position: 'absolute',
-                top: '50%', left: '50%',
-                width: '14px', height: '14px',
-                marginTop: '-7px', marginLeft: '-7px',
-                animation: 'orbit-dot 5s linear infinite',
-              }}
-            >
-              <div
-                style={{
-                  width: '100%', height: '100%',
-                  borderRadius: '50%',
-                  background: '#10b981',
-                  boxShadow: '0 0 10px #10b981',
-                }}
-              />
-            </div>
+            <div style={{
+              width: '100%', height: '100%',
+              borderRadius: '50%',
+              background: '#10b981',
+              boxShadow: '0 0 10px #10b981, 0 0 20px rgba(16,185,129,0.5)',
+            }} />
           </div>
+
           {/* Avatar face */}
           <div
             className="absolute inset-3 rounded-full flex items-center justify-center"
             style={{
-              background: 'linear-gradient(135deg, rgba(0,200,240,0.12), rgba(139,92,246,0.12))',
-              border: '2px solid rgba(0,200,240,0.45)',
-              boxShadow: '0 0 40px rgba(0,200,240,0.2), inset 0 0 20px rgba(0,200,240,0.05)',
+              background: 'linear-gradient(135deg, rgba(0,212,255,0.12) 0%, rgba(124,58,237,0.14) 100%)',
+              border: '2px solid rgba(0,212,255,0.50)',
+              boxShadow: '0 0 50px rgba(0,212,255,0.22), inset 0 0 30px rgba(0,212,255,0.06)',
             }}
           >
             <span
               className="text-4xl font-black"
               style={{
-                background: 'linear-gradient(135deg, #00c8f0, #8b5cf6)',
+                background: 'linear-gradient(135deg, #00d4ff, #a78bfa)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
@@ -211,28 +237,23 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Eyebrow */}
+        {/* Eyebrow label */}
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25 }}
-          className="section-label justify-center mb-4"
-          style={{ fontSize: '0.68rem' }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="section-label justify-center mb-5"
         >
-          PORTFOLIO — ポートフォリオ
+          PORTFOLIO&nbsp;&nbsp;／&nbsp;&nbsp;ポートフォリオ
         </motion.p>
 
         {/* Name */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.7 }}
-          className="font-black mb-2 tracking-tight"
-          style={{
-            fontSize: 'clamp(4rem, 12vw, 7.5rem)',
-            lineHeight: 1,
-            color: '#f1f5f9',
-          }}
+          transition={{ delay: 0.4, duration: 0.75 }}
+          className="font-black tracking-tight leading-none mb-2"
+          style={{ fontSize: 'clamp(4.5rem, 13vw, 8.5rem)', color: '#f0f6ff' }}
         >
           URAN
         </motion.h1>
@@ -240,19 +261,20 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.45 }}
-          className="text-sm font-light mb-6 tracking-widest"
-          style={{ color: '#475569' }}
+          transition={{ delay: 0.5 }}
+          className="text-sm font-light mb-5 tracking-[0.35em]"
+          style={{ color: '#3d5470', fontFamily: "'Noto Sans JP', sans-serif" }}
         >
-          乌兰 / ウラン
+          乌兰　／　ウラン
         </motion.p>
 
-        {/* Typewriter */}
+        {/* Typewriter row */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.55 }}
-          className="text-xl md:text-2xl font-mono font-medium mb-10 h-8"
+          transition={{ delay: 0.6 }}
+          className="h-9 flex items-center justify-center mb-10"
+          style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 'clamp(1rem, 2.5vw, 1.35rem)', fontWeight: 500 }}
         >
           <TypeWriter />
         </motion.div>
@@ -261,22 +283,23 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
+          transition={{ delay: 0.75 }}
           className="flex flex-wrap justify-center gap-3 mb-10"
         >
           {STATS.map(s => (
             <div
               key={s.label}
-              className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl"
+              className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl"
               style={{
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.07)',
+                background: `${s.color}09`,
+                border: `1px solid ${s.color}22`,
+                backdropFilter: 'blur(8px)',
               }}
             >
-              <span style={{ color: '#00c8f0' }}>{s.icon}</span>
+              <span style={{ color: s.color }}>{s.icon}</span>
               <div className="text-left">
-                <div className="text-sm font-bold leading-tight" style={{ color: '#f1f5f9' }}>{s.value}</div>
-                <div className="text-[11px] leading-tight" style={{ color: '#475569' }}>{s.label}</div>
+                <div className="text-sm font-black leading-none mb-0.5" style={{ color: '#f0f6ff' }}>{s.value}</div>
+                <div className="text-[10px] leading-none" style={{ color: '#3d5470', fontFamily: "'JetBrains Mono', monospace" }}>{s.label}</div>
               </div>
             </div>
           ))}
@@ -286,29 +309,76 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.85 }}
-          className="flex flex-wrap justify-center gap-4"
+          transition={{ delay: 0.92 }}
+          className="flex flex-wrap justify-center gap-4 mb-12"
         >
           <a href="#contact" className="btn-primary">
+            <Terminal size={15} />
             お問い合わせ
           </a>
           <a href="#experience" className="btn-outline">
+            <GitBranch size={15} />
             職歴を見る
           </a>
         </motion.div>
+
+        {/* Code snippet card — desktop */}
+        <motion.div
+          initial={{ opacity: 0, y: 24, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 1.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="hidden md:block mx-auto text-left rounded-2xl overflow-hidden"
+          style={{
+            maxWidth: '360px',
+            background: 'rgba(7,12,24,0.85)',
+            border: '1px solid rgba(0,212,255,0.14)',
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 8px 40px rgba(0,0,0,0.5)',
+          }}
+        >
+          {/* Window chrome */}
+          <div className="flex items-center gap-1.5 px-4 py-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#f43f5e' }} />
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#f59e0b' }} />
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#10b981' }} />
+            <div className="flex-1" />
+            <span className="text-[10px]" style={{ color: '#1e293b', fontFamily: "'JetBrains Mono', monospace" }}>engineer.ts</span>
+          </div>
+          <div className="px-5 py-4 space-y-0.5">
+            {CODE_LINES.map((line, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.2 + i * 0.1, duration: 0.4 }}
+                className="text-xs leading-6"
+                style={{
+                  color: line.color,
+                  fontFamily: "'JetBrains Mono', monospace",
+                }}
+              >
+                <span style={{ color: '#1e293b', marginRight: '1rem', userSelect: 'none' }}>{i + 1}</span>
+                {line.text}
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </motion.div>
 
-      {/* Scroll cue */}
+      {/* Scroll indicator */}
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4 }}
-        style={{ color: '#334155' }}
+        transition={{ delay: 1.6 }}
+        style={{ color: '#1e293b' }}
       >
-        <span className="text-[10px] font-mono tracking-[0.4em]">SCROLL</span>
-        <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.8, repeat: Infinity }}>
-          <ArrowDown size={16} />
+        <span className="text-[9px] tracking-[0.5em]" style={{ fontFamily: "'JetBrains Mono', monospace" }}>SCROLL</span>
+        <motion.div
+          animate={{ y: [0, 7, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <ArrowDown size={15} />
         </motion.div>
       </motion.div>
     </section>
