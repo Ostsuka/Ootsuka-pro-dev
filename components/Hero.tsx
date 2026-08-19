@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { ArrowDown, Code2, Server, Cloud, Sparkles, Terminal, GitBranch } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowDown, Code2, Server, Cloud, Sparkles, Terminal, GitBranch, CheckCircle2, TrendingUp, Users, Zap } from 'lucide-react';
 import ParticleNetwork from './backgrounds/ParticleNetwork';
 
 /* ── Typewriter ─────────────────────────────────── */
@@ -56,22 +56,41 @@ const BADGES = [
   { label: 'PostgreSQL',  color: '#336791', x: '20%', y: '80%', delay: 2.3 },
 ];
 
-/* ── Stats ──────────────────────────────────────── */
-const STATS = [
-  { icon: <Code2 size={14} />,     value: '5+',     label: '年の経験',   color: '#00d4ff' },
-  { icon: <Server size={14} />,    value: '10+',    label: '技術スタック', color: '#a78bfa' },
-  { icon: <Cloud size={14} />,     value: 'AWS',    label: 'クラウド',   color: '#ff9900' },
-  { icon: <Sparkles size={14} />,  value: '30%↑',  label: '業務改善',   color: '#10b981' },
+/* ── Value propositions ─────────────────────────── */
+const VALUE_PROPS = [
+  {
+    icon: <TrendingUp size={15} />,
+    text: '売上・問い合わせにつながるシステムを設計・構築します',
+    color: '#10b981',
+  },
+  {
+    icon: <Zap size={15} />,
+    text: '業務プロセスの非効率を、テクノロジーで解決します',
+    color: '#00d4ff',
+  },
+  {
+    icon: <Users size={15} />,
+    text: '要件定義から運用まで一人でフルサイクル対応可能です',
+    color: '#a78bfa',
+  },
+];
+
+/* ── Metrics ────────────────────────────────────── */
+const METRICS = [
+  { icon: <Code2 size={14} />,       value: '5+',  label: '年の実務経験',    color: '#00d4ff' },
+  { icon: <TrendingUp size={14} />,  value: '30%↑', label: '業務効率化実績',  color: '#10b981' },
+  { icon: <CheckCircle2 size={14} />, value: '20%↓', label: 'エラー率削減',   color: '#a78bfa' },
+  { icon: <Server size={14} />,      value: '4社',  label: '継続取引実績',    color: '#f59e0b' },
 ];
 
 /* ── Code snippet lines ─────────────────────────── */
 const CODE_LINES = [
-  { text: 'const engineer = {',            color: '#e2e8f0' },
-  { text: '  name: "URAN",',               color: '#94a3b8' },
-  { text: '  role: "Full-Stack",',         color: '#94a3b8' },
-  { text: '  stack: ["React", "Java"],',   color: '#94a3b8' },
-  { text: '  available: true,',            color: '#10b981' },
-  { text: '};',                            color: '#e2e8f0' },
+  { text: 'const solution = {',           color: '#e2e8f0' },
+  { text: '  problem: "あなたの課題",',   color: '#94a3b8' },
+  { text: '  engineer: "URAN",',          color: '#94a3b8' },
+  { text: '  result: "業務効率 +30%",',  color: '#10b981' },
+  { text: '  available: true,',           color: '#00d4ff' },
+  { text: '};',                           color: '#e2e8f0' },
 ];
 
 /* ── Component ──────────────────────────────────── */
@@ -81,8 +100,13 @@ export default function Hero() {
   const yContent = useTransform(scrollYProgress, [0, 1], [0, 90]);
   const opacity  = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
   const [mounted, setMounted] = useState(false);
+  const [activeValue, setActiveValue] = useState(0);
 
   useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    const timer = setInterval(() => setActiveValue(v => (v + 1) % VALUE_PROPS.length), 3500);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section
@@ -147,56 +171,40 @@ export default function Hero() {
       {/* ── Main content ── */}
       <motion.div
         style={{ y: yContent, opacity }}
-        className="relative z-10 text-center px-6 max-w-4xl mx-auto"
+        className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-20"
       >
         {/* ── Avatar / profile ring ── */}
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mx-auto mb-10 w-36 h-36"
+          className="relative mx-auto mb-8 w-32 h-32"
         >
           {/* Outermost pulse ring */}
           <motion.div
             className="absolute rounded-full"
-            style={{
-              inset: '-18px',
-              border: '1px solid rgba(0,212,255,0.12)',
-            }}
+            style={{ inset: '-18px', border: '1px solid rgba(0,212,255,0.12)' }}
             animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.12, 0.5] }}
             transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
           />
-          {/* Second ring */}
           <motion.div
             className="absolute rounded-full"
-            style={{
-              inset: '-8px',
-              border: '1px solid rgba(0,212,255,0.22)',
-            }}
+            style={{ inset: '-8px', border: '1px solid rgba(0,212,255,0.22)' }}
             animate={{ scale: [1, 1.08, 1], opacity: [0.6, 0.2, 0.6] }}
             transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
           />
-          {/* Spinning dashed ring */}
           <motion.div
             className="absolute rounded-full"
-            style={{
-              inset: '-4px',
-              border: '1.5px dashed rgba(0,212,255,0.30)',
-            }}
+            style={{ inset: '-4px', border: '1.5px dashed rgba(0,212,255,0.30)' }}
             animate={{ rotate: 360 }}
             transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
           />
-          {/* Counter-spinning ring */}
           <motion.div
             className="absolute rounded-full"
-            style={{
-              inset: '8px',
-              border: '1px dashed rgba(124,58,237,0.25)',
-            }}
+            style={{ inset: '8px', border: '1px dashed rgba(124,58,237,0.25)' }}
             animate={{ rotate: -360 }}
             transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
           />
-
           {/* Orbiting dot */}
           <div
             className="absolute pointer-events-none"
@@ -208,13 +216,11 @@ export default function Hero() {
             }}
           >
             <div style={{
-              width: '100%', height: '100%',
-              borderRadius: '50%',
+              width: '100%', height: '100%', borderRadius: '50%',
               background: '#10b981',
               boxShadow: '0 0 10px #10b981, 0 0 20px rgba(16,185,129,0.5)',
             }} />
           </div>
-
           {/* Avatar face */}
           <div
             className="absolute inset-3 rounded-full flex items-center justify-center"
@@ -224,16 +230,10 @@ export default function Hero() {
               boxShadow: '0 0 50px rgba(0,212,255,0.22), inset 0 0 30px rgba(0,212,255,0.06)',
             }}
           >
-            <span
-              className="text-4xl font-black"
-              style={{
-                background: 'linear-gradient(135deg, #00d4ff, #a78bfa)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              U
-            </span>
+            <span className="text-4xl font-black" style={{
+              background: 'linear-gradient(135deg, #00d4ff, #a78bfa)',
+              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+            }}>U</span>
           </div>
         </motion.div>
 
@@ -242,10 +242,60 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="section-label justify-center mb-5"
+          className="section-label justify-center mb-4"
         >
           PORTFOLIO&nbsp;&nbsp;／&nbsp;&nbsp;ポートフォリオ
         </motion.p>
+
+        {/* ── Value proposition banner (rotates) ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35, duration: 0.5 }}
+          className="mx-auto mb-5 max-w-xl"
+        >
+          <div
+            className="rounded-2xl px-5 py-3 flex items-center gap-3 justify-center"
+            style={{
+              background: 'rgba(0,212,255,0.05)',
+              border: '1px solid rgba(0,212,255,0.15)',
+              backdropFilter: 'blur(12px)',
+              minHeight: '48px',
+            }}
+          >
+            {VALUE_PROPS.map((vp, i) => (
+              <motion.div
+                key={i}
+                className="flex items-center gap-2.5"
+                style={{
+                  display: activeValue === i ? 'flex' : 'none',
+                  color: vp.color,
+                }}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                {vp.icon}
+                <span className="text-sm font-semibold" style={{ color: '#e2e8f0' }}>{vp.text}</span>
+              </motion.div>
+            ))}
+          </div>
+          {/* Dots */}
+          <div className="flex justify-center gap-1.5 mt-2">
+            {VALUE_PROPS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveValue(i)}
+                className="rounded-full transition-all"
+                style={{
+                  width: activeValue === i ? '20px' : '6px',
+                  height: '6px',
+                  background: activeValue === i ? '#00d4ff' : 'rgba(255,255,255,0.15)',
+                }}
+              />
+            ))}
+          </div>
+        </motion.div>
 
         {/* Name */}
         <motion.h1
@@ -253,7 +303,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.75 }}
           className="font-black tracking-tight leading-none mb-2"
-          style={{ fontSize: 'clamp(4.5rem, 13vw, 8.5rem)', color: '#f0f6ff' }}
+          style={{ fontSize: 'clamp(3.5rem, 11vw, 7.5rem)', color: '#f0f6ff' }}
         >
           URAN
         </motion.h1>
@@ -262,7 +312,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="text-sm font-light mb-5 tracking-[0.35em]"
+          className="text-sm font-light mb-4 tracking-[0.35em]"
           style={{ color: '#3d5470', fontFamily: "'Noto Sans JP', sans-serif" }}
         >
           乌兰　／　ウラン
@@ -273,35 +323,36 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="h-9 flex items-center justify-center mb-10"
-          style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 'clamp(1rem, 2.5vw, 1.35rem)', fontWeight: 500 }}
+          className="h-9 flex items-center justify-center mb-8"
+          style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 'clamp(1rem, 2.5vw, 1.3rem)', fontWeight: 500 }}
         >
           <TypeWriter />
         </motion.div>
 
-        {/* Stats row */}
+        {/* ── Metrics bar ── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.75 }}
-          className="flex flex-wrap justify-center gap-3 mb-10"
+          transition={{ delay: 0.72 }}
+          className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 max-w-2xl mx-auto"
         >
-          {STATS.map(s => (
-            <div
-              key={s.label}
-              className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl"
+          {METRICS.map((m, i) => (
+            <motion.div
+              key={m.label}
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.75 + i * 0.08, duration: 0.45 }}
+              className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl"
               style={{
-                background: `${s.color}09`,
-                border: `1px solid ${s.color}22`,
+                background: `${m.color}09`,
+                border: `1px solid ${m.color}22`,
                 backdropFilter: 'blur(8px)',
               }}
             >
-              <span style={{ color: s.color }}>{s.icon}</span>
-              <div className="text-left">
-                <div className="text-sm font-black leading-none mb-0.5" style={{ color: '#f0f6ff' }}>{s.value}</div>
-                <div className="text-[10px] leading-none" style={{ color: '#3d5470', fontFamily: "'JetBrains Mono', monospace" }}>{s.label}</div>
-              </div>
-            </div>
+              <span style={{ color: m.color }}>{m.icon}</span>
+              <div className="text-lg font-black leading-none" style={{ color: '#f0f6ff' }}>{m.value}</div>
+              <div className="text-[10px] text-center leading-4" style={{ color: '#3d5470', fontFamily: "'JetBrains Mono', monospace" }}>{m.label}</div>
+            </motion.div>
           ))}
         </motion.div>
 
@@ -310,16 +361,36 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.92 }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-col sm:flex-row justify-center gap-4 mb-10"
         >
-          <a href="#contact" className="btn-primary">
-            <Terminal size={15} />
-            お問い合わせ
+          <a href="#contact" className="btn-primary text-base px-8 py-4">
+            <Terminal size={17} />
+            まずは無料相談する
           </a>
-          <a href="#experience" className="btn-outline">
-            <GitBranch size={15} />
-            職歴を見る
+          <a href="#projects" className="btn-outline text-base px-8 py-4">
+            <GitBranch size={17} />
+            実績を見る
           </a>
+        </motion.div>
+
+        {/* Trust signals row */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.05 }}
+          className="flex flex-wrap justify-center items-center gap-4 mb-10"
+        >
+          {[
+            { text: '即日対応可', color: '#10b981' },
+            { text: '日本語で仕様確認', color: '#00d4ff' },
+            { text: '要件定義〜運用まで一貫', color: '#a78bfa' },
+            { text: '現在受付中', color: '#f59e0b' },
+          ].map((t, i) => (
+            <div key={i} className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: t.color }}>
+              <CheckCircle2 size={13} />
+              {t.text}
+            </div>
+          ))}
         </motion.div>
 
         {/* Code snippet card — desktop */}
@@ -329,20 +400,19 @@ export default function Hero() {
           transition={{ delay: 1.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="hidden md:block mx-auto text-left rounded-2xl overflow-hidden"
           style={{
-            maxWidth: '360px',
+            maxWidth: '380px',
             background: 'rgba(7,12,24,0.85)',
             border: '1px solid rgba(0,212,255,0.14)',
             backdropFilter: 'blur(20px)',
             boxShadow: '0 8px 40px rgba(0,0,0,0.5)',
           }}
         >
-          {/* Window chrome */}
           <div className="flex items-center gap-1.5 px-4 py-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
             <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#f43f5e' }} />
             <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#f59e0b' }} />
             <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#10b981' }} />
             <div className="flex-1" />
-            <span className="text-[10px]" style={{ color: '#1e293b', fontFamily: "'JetBrains Mono', monospace" }}>engineer.ts</span>
+            <span className="text-[10px]" style={{ color: '#1e293b', fontFamily: "'JetBrains Mono', monospace" }}>solution.ts</span>
           </div>
           <div className="px-5 py-4 space-y-0.5">
             {CODE_LINES.map((line, i) => (
@@ -352,10 +422,7 @@ export default function Hero() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2 + i * 0.1, duration: 0.4 }}
                 className="text-xs leading-6"
-                style={{
-                  color: line.color,
-                  fontFamily: "'JetBrains Mono', monospace",
-                }}
+                style={{ color: line.color, fontFamily: "'JetBrains Mono', monospace" }}
               >
                 <span style={{ color: '#1e293b', marginRight: '1rem', userSelect: 'none' }}>{i + 1}</span>
                 {line.text}
