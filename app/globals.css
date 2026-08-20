@@ -1,7 +1,5 @@
-@import "tailwindcss";
-
-/* ─── Google Fonts ─── */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
 
 /* ─── Design Tokens ─── */
 :root {
@@ -561,4 +559,195 @@ body {
 ::selection {
   background: rgba(0,212,255,0.22);
   color: white;
+}
+
+/* ─── Section transition fade ─── */
+.section-fade {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.section-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Gradient border card ─── */
+.card-gradient-border {
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+.card-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(0,212,255,0.3), rgba(124,58,237,0.3), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ─── Glow text ─── */
+.text-glow-cyan {
+  text-shadow: 0 0 20px rgba(0,212,255,0.6), 0 0 40px rgba(0,212,255,0.3);
+}
+.text-glow-violet {
+  text-shadow: 0 0 20px rgba(167,139,250,0.6), 0 0 40px rgba(167,139,250,0.3);
+}
+
+/* ─── Shimmer loading bar ─── */
+.shimmer-bar {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0,212,255,0.15) 40%,
+    rgba(0,212,255,0.3) 50%,
+    rgba(0,212,255,0.15) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* ─── Neon border button variant ─── */
+.btn-neon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--cyan);
+  border: 1.5px solid var(--cyan);
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.25s, background 0.25s, box-shadow 0.25s;
+}
+.btn-neon:hover {
+  background: rgba(0,212,255,0.1);
+  box-shadow: 0 0 24px rgba(0,212,255,0.35), inset 0 0 24px rgba(0,212,255,0.05);
+  color: #fff;
+}
+
+/* ─── Floating animation variants ─── */
+@keyframes float-1 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-14px) rotate(2deg); }
+}
+@keyframes float-2 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-10px) rotate(-1.5deg); }
+}
+@keyframes float-3 {
+  0%, 100% { transform: translateY(0px); }
+  33%       { transform: translateY(-8px); }
+  66%       { transform: translateY(-4px); }
+}
+.animate-float-1 { animation: float-1 5.5s ease-in-out infinite; }
+.animate-float-2 { animation: float-2 4.8s ease-in-out infinite; }
+.animate-float-3 { animation: float-3 6.2s ease-in-out infinite; }
+
+/* ─── Section separator gradient ─── */
+.section-sep {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0,212,255,0.2) 25%, rgba(124,58,237,0.2) 75%, transparent 100%);
+}
+
+/* ─── Backdrop blur card ─── */
+.blur-card {
+  background: rgba(11, 20, 36, 0.65);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-lg);
+}
+
+/* ─── Highlight text span ─── */
+.highlight {
+  color: var(--cyan);
+  font-weight: 700;
+}
+.highlight-green {
+  color: var(--emerald);
+  font-weight: 700;
+}
+.highlight-violet {
+  color: var(--violet-l);
+  font-weight: 700;
+}
+
+/* ─── Number counter display ─── */
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ─── Icon circle ─── */
+.icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ─── Badge pill ─── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* ─── Available pulse ─── */
+.available-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--emerald);
+}
+.available-dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--emerald);
+  box-shadow: 0 0 0 0 rgba(16,185,129,0.7);
+  animation: pulse-ring 1.5s ease-out infinite;
+}
+
+/* ─── Table-of-contents sticky bar ─── */
+.toc-bar {
+  position: sticky;
+  top: 70px;
+  z-index: 30;
+  backdrop-filter: blur(16px);
+  background: rgba(5,8,16,0.82);
+  border-bottom: 1px solid rgba(0,212,255,0.07);
+}
+
+/* ─── Mobile tap target ─── */
+@media (max-width: 768px) {
+  .btn-primary, .btn-outline, .btn-ghost {
+    min-height: 48px;
+  }
 }
