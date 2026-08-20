@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
 import {
   ArrowDown, Terminal, GitBranch, CheckCircle2,
   TrendingUp, Users, Zap, Star, Shield, Clock,
@@ -176,42 +177,83 @@ export default function Hero() {
         style={{ y: yContent, opacity }}
         className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-20"
       >
-        {/* ── Avatar ring ── */}
+        {/* ── Avatar ring with photo ── */}
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mx-auto mb-8 w-32 h-32"
+          className="relative mx-auto mb-8"
+          style={{ width: '160px', height: '160px' }}
         >
-          <motion.div className="absolute rounded-full" style={{ inset: '-18px', border: '1px solid rgba(0,212,255,0.12)' }}
-            animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.12, 0.5] }}
+          {/* Outer pulse rings */}
+          <motion.div className="absolute rounded-full" style={{ inset: '-20px', border: '1px solid rgba(0,212,255,0.12)' }}
+            animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.10, 0.5] }}
             transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }} />
-          <motion.div className="absolute rounded-full" style={{ inset: '-8px', border: '1px solid rgba(0,212,255,0.22)' }}
-            animate={{ scale: [1, 1.08, 1], opacity: [0.6, 0.2, 0.6] }}
+          <motion.div className="absolute rounded-full" style={{ inset: '-10px', border: '1px solid rgba(0,212,255,0.22)' }}
+            animate={{ scale: [1, 1.07, 1], opacity: [0.6, 0.2, 0.6] }}
             transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }} />
-          <motion.div className="absolute rounded-full" style={{ inset: '-4px', border: '1.5px dashed rgba(0,212,255,0.30)' }}
+          {/* Rotating dashed ring */}
+          <motion.div className="absolute rounded-full" style={{ inset: '-5px', border: '1.5px dashed rgba(0,212,255,0.35)' }}
             animate={{ rotate: 360 }} transition={{ duration: 14, repeat: Infinity, ease: 'linear' }} />
-          <motion.div className="absolute rounded-full" style={{ inset: '8px', border: '1px dashed rgba(124,58,237,0.25)' }}
+          {/* Inner rotating ring */}
+          <motion.div className="absolute rounded-full" style={{ inset: '10px', border: '1px dashed rgba(124,58,237,0.25)' }}
             animate={{ rotate: -360 }} transition={{ duration: 20, repeat: Infinity, ease: 'linear' }} />
           {/* Orbiting dot */}
           <div className="absolute pointer-events-none" style={{
             top: '50%', left: '50%', width: '12px', height: '12px',
             marginTop: '-6px', marginLeft: '-6px',
-            animation: 'orbit-dot 5.5s linear infinite',
+            animation: 'orbit-dot-lg 5.5s linear infinite',
           }}>
             <div style={{ width: '100%', height: '100%', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 10px #10b981, 0 0 20px rgba(16,185,129,0.5)' }} />
           </div>
-          {/* Face */}
-          <div className="absolute inset-3 rounded-full flex items-center justify-center" style={{
-            background: 'linear-gradient(135deg, rgba(0,212,255,0.12) 0%, rgba(124,58,237,0.14) 100%)',
-            border: '2px solid rgba(0,212,255,0.50)',
-            boxShadow: '0 0 50px rgba(0,212,255,0.22), inset 0 0 30px rgba(0,212,255,0.06)',
-          }}>
-            <span className="text-4xl font-black" style={{
-              background: 'linear-gradient(135deg, #00d4ff, #a78bfa)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-            }}>U</span>
+
+          {/* Photo frame */}
+          <div
+            className="absolute rounded-full overflow-hidden"
+            style={{
+              inset: '0',
+              border: '3px solid rgba(0,212,255,0.55)',
+              boxShadow: '0 0 40px rgba(0,212,255,0.30), 0 0 80px rgba(0,212,255,0.12), inset 0 0 30px rgba(0,212,255,0.06)',
+            }}
+          >
+            <Image
+              src="/hero-profile.jpg"
+              alt="URAN - Full-Stack Engineer"
+              fill
+              className="object-cover object-center"
+              priority
+              sizes="160px"
+              onError={() => {/* fallback handled by CSS */}}
+            />
+            {/* Subtle cyan tint overlay for dark theme integration */}
+            <div className="absolute inset-0 rounded-full" style={{
+              background: 'linear-gradient(160deg, rgba(0,212,255,0.08) 0%, rgba(124,58,237,0.10) 100%)',
+              mixBlendMode: 'color',
+            }} />
           </div>
+
+          {/* Available badge */}
+          <motion.div
+            className="absolute flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold"
+            style={{
+              bottom: '-4px', right: '-12px',
+              background: 'rgba(7,12,24,0.95)',
+              border: '1px solid rgba(16,185,129,0.4)',
+              color: '#10b981',
+              backdropFilter: 'blur(8px)',
+              zIndex: 20,
+              whiteSpace: 'nowrap',
+            }}
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.0, duration: 0.4 }}
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: '#10b981' }} />
+              <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: '#10b981' }} />
+            </span>
+            受付中
+          </motion.div>
         </motion.div>
 
         {/* Eyebrow */}

@@ -216,6 +216,20 @@ function ProjectCard({ proj, index }: { proj: Project; index: number }) {
 export default function Projects() {
   return (
     <section id="projects" className="section relative" style={{ background: '#050810' }}>
+      {/* Background photo — laptop work / project development scene */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1551434678-e076c223a692?w=1920&q=80&fit=crop')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 40%',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="absolute inset-0 z-0" style={{
+        background: 'linear-gradient(160deg, rgba(5,8,16,0.94) 0%, rgba(5,8,16,0.90) 50%, rgba(5,8,16,0.94) 100%)',
+      }} />
+
       <GridBackground accent="#10b981" accent2="#00c8f0" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">

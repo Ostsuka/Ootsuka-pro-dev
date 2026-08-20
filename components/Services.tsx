@@ -289,6 +289,20 @@ function ServiceCard({ svc, index }: { svc: Service; index: number }) {
 export default function Services() {
   return (
     <section id="services" className="section relative" style={{ background: '#060b18' }}>
+      {/* Background photo — professional team meeting / business discussion */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80&fit=crop')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 40%',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="absolute inset-0 z-0" style={{
+        background: 'linear-gradient(160deg, rgba(6,11,24,0.94) 0%, rgba(6,11,24,0.89) 45%, rgba(6,11,24,0.93) 100%)',
+      }} />
+
       <GridBackground accent="#a78bfa" accent2="#00d4ff" />
 
       {/* Top edge line */}

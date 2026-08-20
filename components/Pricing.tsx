@@ -239,6 +239,20 @@ export default function Pricing() {
 
   return (
     <section id="pricing" className="section relative" style={{ background: '#070c18' }}>
+      {/* Background photo — business meeting / consulting scene */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1920&q=80&fit=crop')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 50%',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="absolute inset-0 z-0" style={{
+        background: 'linear-gradient(160deg, rgba(7,12,24,0.95) 0%, rgba(7,12,24,0.90) 50%, rgba(7,12,24,0.95) 100%)',
+      }} />
+
       <WaveBackground />
 
       {/* Top edge */}

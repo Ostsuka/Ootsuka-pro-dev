@@ -257,6 +257,20 @@ function StepCard({ step, index }: { step: Step; index: number }) {
 export default function Process() {
   return (
     <section id="process" className="section relative" style={{ background: '#050810' }}>
+      {/* Background photo — whiteboard planning / workflow discussion */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1920&q=80&fit=crop')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 45%',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="absolute inset-0 z-0" style={{
+        background: 'linear-gradient(160deg, rgba(5,8,16,0.94) 0%, rgba(5,8,16,0.90) 50%, rgba(5,8,16,0.94) 100%)',
+      }} />
+
       <GridBackground accent="#10b981" accent2="#a78bfa" />
 
       {/* Top edge */}

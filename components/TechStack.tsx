@@ -262,6 +262,20 @@ export default function TechStack() {
 
   return (
     <section id="tech" className="section relative" style={{ background: '#080d1a' }}>
+      {/* Background photo — technology / code on multiple screens */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=1920&q=80&fit=crop')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 50%',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="absolute inset-0 z-0" style={{
+        background: 'linear-gradient(160deg, rgba(8,13,26,0.96) 0%, rgba(8,13,26,0.91) 50%, rgba(8,13,26,0.96) 100%)',
+      }} />
+
       <CircuitBackground />
 
       {/* Top edge */}

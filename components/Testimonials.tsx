@@ -125,6 +125,20 @@ export default function Testimonials() {
 
   return (
     <section id="testimonials" className="section relative" style={{ background: '#07090f' }}>
+      {/* Background photo — business team collaboration, positive work environment */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80&fit=crop')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 40%',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="absolute inset-0 z-0" style={{
+        background: 'linear-gradient(160deg, rgba(7,9,15,0.95) 0%, rgba(7,9,15,0.90) 50%, rgba(7,9,15,0.95) 100%)',
+      }} />
+
       <WaveBackground />
 
       {/* Top edge */}

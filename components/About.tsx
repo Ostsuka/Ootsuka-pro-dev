@@ -64,6 +64,21 @@ const fadeUp = (delay = 0) => ({
 export default function About() {
   return (
     <section id="about" className="section relative" style={{ background: '#070c18' }}>
+      {/* Background photo — 2 women discussing business in a modern office */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1920&q=80&fit=crop')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 30%',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      {/* Dark overlay — keeps text readable while showing the photo softly */}
+      <div className="absolute inset-0 z-0" style={{
+        background: 'linear-gradient(160deg, rgba(7,12,24,0.93) 0%, rgba(7,12,24,0.88) 40%, rgba(7,12,24,0.92) 100%)',
+      }} />
+
       <GridBackground accent="#a78bfa" accent2="#00d4ff" />
 
       {/* Top edge line */}

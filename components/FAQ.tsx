@@ -181,6 +181,20 @@ export default function FAQ() {
 
   return (
     <section id="faq" className="section relative" style={{ background: '#060b18' }}>
+      {/* Background photo — person thinking / studying at desk */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?w=1920&q=80&fit=crop')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 45%',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="absolute inset-0 z-0" style={{
+        background: 'linear-gradient(160deg, rgba(6,11,24,0.95) 0%, rgba(6,11,24,0.91) 50%, rgba(6,11,24,0.95) 100%)',
+      }} />
+
       <CircuitBackground />
 
       {/* Top edge */}

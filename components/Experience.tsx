@@ -257,6 +257,20 @@ function ProjectCard({ proj, color, index }: { proj: Project; color: string; ind
 export default function Experience() {
   return (
     <section id="experience" className="section relative" style={{ background: '#070c18' }}>
+      {/* Background photo — focused male professional working at desk */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=80&fit=crop')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 30%',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="absolute inset-0 z-0" style={{
+        background: 'linear-gradient(160deg, rgba(7,12,24,0.94) 0%, rgba(7,12,24,0.88) 50%, rgba(7,12,24,0.94) 100%)',
+      }} />
+
       <WaveBackground />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">

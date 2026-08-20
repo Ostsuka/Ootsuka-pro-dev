@@ -253,6 +253,20 @@ export default function Skills() {
 
   return (
     <section id="skills" className="section relative" style={{ background: '#04070f' }}>
+      {/* Background photo — developer focused on code / technology workspace */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1920&q=80&fit=crop')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 50%',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="absolute inset-0 z-0" style={{
+        background: 'linear-gradient(160deg, rgba(4,7,15,0.95) 0%, rgba(4,7,15,0.90) 50%, rgba(4,7,15,0.95) 100%)',
+      }} />
+
       <CircuitBackground />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">

@@ -54,6 +54,20 @@ const fadeUp = (delay = 0) => ({
 export default function Contact() {
   return (
     <section id="contact" className="section relative" style={{ background: '#050810' }}>
+      {/* Background photo — professional woman working at desk, thoughtful expression */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80&fit=crop')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 35%',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="absolute inset-0 z-0" style={{
+        background: 'linear-gradient(160deg, rgba(5,8,16,0.95) 0%, rgba(5,8,16,0.90) 50%, rgba(5,8,16,0.95) 100%)',
+      }} />
+
       <WaveBackground />
 
       {/* Top gradient line */}
