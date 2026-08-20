@@ -37,15 +37,14 @@ export default function Footer() {
   };
 
   return (
-    <footer style={{ background: '#2d2416', color: '#c8b89a', position: 'relative', overflow: 'hidden' }}>
-      {/* Subtle dark texture overlay */}
+    <footer style={{ background: '#2d2416', color: '#c8b89a', position: 'relative' }}>
+      {/* Background — Tokyo night skyline, subtle dark texture for professionalism */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none"
+        className="section-bg"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&auto=format&fit=crop&q=60')",
-          backgroundSize: 'cover',
+          backgroundImage: "url('https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=1920&auto=format&fit=crop&q=85')",
           backgroundPosition: 'center bottom',
-          opacity: 0.08,
+          opacity: 0.12,
         }}
       />
 

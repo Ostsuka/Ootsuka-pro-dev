@@ -55,21 +55,20 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
 
   return (
-    <section id="contact" className="section" style={{ background: 'var(--bg2)' }}>
-      {/* Background – Japanese city nature blend / cherry blossoms */}
+    <section id="contact" className="section">
+      {/* Background — Tokyo cityscape with cherry blossoms, trust & elegance */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none"
+        className="section-bg"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1800&auto=format&fit=crop&q=80')",
-          backgroundSize: 'cover',
+          backgroundImage: "url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1920&auto=format&fit=crop&q=85')",
           backgroundPosition: 'center',
         }}
       />
       <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{ background: 'rgba(237,230,204,0.91)' }}
+        className="section-overlay"
+        style={{ background: 'linear-gradient(160deg, rgba(237,230,204,0.92) 0%, rgba(232,225,198,0.89) 100%)' }}
       />
-      <div className="relative z-10 max-w-5xl mx-auto px-6">
+      <div className="section-inner max-w-5xl mx-auto px-6">
 
         {/* Header */}
         <motion.div className="text-center mb-12"

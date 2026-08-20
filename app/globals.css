@@ -112,10 +112,10 @@ body {
 .section {
   padding: 7rem 0;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden を削除 — 背景画像が切り取られないように */
 }
 
-/* ─── Section bg image overlay ─── */
+/* ─── Section background image layer ─── */
 .section-bg {
   position: absolute;
   inset: 0;
@@ -123,20 +123,19 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   z-index: 0;
-}
-
-.section-bg-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-.section > .section-bg,
-.section > .section-bg-overlay {
   pointer-events: none;
 }
 
-.section > *:not(.section-bg):not(.section-bg-overlay) {
+/* ─── Section overlay (color wash on top of bg image) ─── */
+.section-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ─── Section inner content (always above bg) ─── */
+.section-inner {
   position: relative;
   z-index: 2;
 }

@@ -71,29 +71,24 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center"
+      style={{ position: 'relative' }}
     >
-      {/* Background photo – Japanese woman working in modern office */}
+      {/* Background — Japanese businesswoman in modern bright office */}
       <div
-        className="absolute inset-0 z-0"
+        className="section-bg"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1800&auto=format&fit=crop&q=80')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center top',
+          backgroundImage: "url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1920&auto=format&fit=crop&q=85')",
+          backgroundPosition: 'center 20%',
         }}
       />
-      {/* Warm cream overlay – keeps readability while showing the photo */}
+      {/* Warm cream overlay */}
       <div
-        className="absolute inset-0 z-0"
-        style={{ background: 'linear-gradient(135deg, rgba(245,238,216,0.92) 0%, rgba(237,230,204,0.85) 50%, rgba(245,238,216,0.78) 100%)' }}
+        className="section-overlay"
+        style={{ background: 'linear-gradient(135deg, rgba(245,238,216,0.88) 0%, rgba(237,230,204,0.82) 60%, rgba(245,238,216,0.75) 100%)' }}
       />
-      {/* Accent blobs on top of overlay */}
-      <div className="absolute top-[-120px] right-[-120px] w-[500px] h-[500px] rounded-full pointer-events-none z-0"
-        style={{ background: 'radial-gradient(circle, rgba(43,181,160,0.12) 0%, transparent 65%)' }} />
-      <div className="absolute bottom-[-80px] left-[-80px] w-[400px] h-[400px] rounded-full pointer-events-none z-0"
-        style={{ background: 'radial-gradient(circle, rgba(58,123,213,0.10) 0%, transparent 65%)' }} />
 
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 pt-24 pb-16">
+      <div className="section-inner w-full max-w-5xl mx-auto px-6 pt-24 pb-16">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
           {/* ── Left: Profile photo ── */}
@@ -280,7 +275,7 @@ export default function Hero() {
       {/* Scroll indicator */}
       {mounted && (
         <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
+          className="section-inner absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.4 }}

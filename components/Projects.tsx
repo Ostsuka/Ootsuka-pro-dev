@@ -154,21 +154,20 @@ export default function Projects() {
     : PROJECTS.filter(p => p.categoryId === activeFilter);
 
   return (
-    <section id="projects" className="section" style={{ background: 'var(--bg)' }}>
-      {/* Background – design workspace with sketches and tech */}
+    <section id="projects" className="section">
+      {/* Background — modern Japanese team collaboration in bright open office */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none"
+        className="section-bg"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1800&auto=format&fit=crop&q=80')",
-          backgroundSize: 'cover',
+          backgroundImage: "url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&auto=format&fit=crop&q=85')",
           backgroundPosition: 'center',
         }}
       />
       <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{ background: 'rgba(245,238,216,0.90)' }}
+        className="section-overlay"
+        style={{ background: 'linear-gradient(160deg, rgba(245,238,216,0.91) 0%, rgba(240,233,210,0.88) 100%)' }}
       />
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
+      <div className="section-inner max-w-6xl mx-auto px-6">
 
         {/* Header */}
         <motion.div className="text-center mb-12"

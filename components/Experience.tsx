@@ -142,21 +142,20 @@ function ProjectCard({ proj, color, index }: { proj: Project; color: string; ind
 
 export default function Experience() {
   return (
-    <section id="experience" className="section" style={{ background: 'var(--bg)' }}>
-      {/* Background – focused engineer working late, warm office atmosphere */}
+    <section id="experience" className="section">
+      {/* Background — man intensely coding at night, multiple screens glowing */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none"
+        className="section-bg"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1800&auto=format&fit=crop&q=80')",
-          backgroundSize: 'cover',
+          backgroundImage: "url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1920&auto=format&fit=crop&q=85')",
           backgroundPosition: 'center',
         }}
       />
       <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{ background: 'rgba(237,230,204,0.92)' }}
+        className="section-overlay"
+        style={{ background: 'linear-gradient(160deg, rgba(237,230,204,0.93) 0%, rgba(232,225,198,0.90) 100%)' }}
       />
-      <div className="relative z-10 max-w-5xl mx-auto px-6">
+      <div className="section-inner max-w-5xl mx-auto px-6">
 
         <motion.div className="text-center mb-14"
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
