@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body style={{ background: '#ffffff', color: '#0f172a', overflowX: 'hidden' }}>
+      <body style={{ background: '#f5eed8', color: '#2d2416', overflowX: 'hidden' }}>
         {children}
       </body>
     </html>

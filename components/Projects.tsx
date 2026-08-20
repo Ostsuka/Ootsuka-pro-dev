@@ -1,175 +1,218 @@
 'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Code2, Database, Cloud, TrendingUp, ChevronDown } from 'lucide-react';
+import { ExternalLink, Github, TrendingUp, Users, Calendar } from 'lucide-react';
 
-interface Metric { label: string; value: string; color: string; }
+interface Metric { label: string; value: string; }
 interface Project {
-  title: string; titleEn: string; category: string; description: string;
-  challenge: string; solution: string; result: string;
-  stack: string[]; metrics: Metric[]; accentColor: string; icon: React.ReactNode;
+  title: string; titleEn: string; category: string; categoryId: string;
+  description: string; result: string;
+  stack: string[]; metrics: Metric[];
+  accentColor: string; headerBg: string;
+  icon: string;
 }
 
 const PROJECTS: Project[] = [
   {
-    title: 'EC 一元管理 SaaS — 商品・在庫同期', titleEn: 'EC Unified Management SaaS',
-    category: 'SaaS / E-Commerce',
-    description: '楽天市場・Yahoo!ショッピング等の複数 EC モールにまたがる商品・在庫データをリアルタイムで同期する SaaS バックエンドシステム。',
-    challenge: '複数の EC モール API の仕様差異とレート制限を考慮しながら、データ整合性を保った高頻度同期が必要だった。',
-    solution: 'NestJS の Queue 機構（Bull）で API リクエストを制御し、べき等なジョブ設計で再試行時のデータ重複を防止。バリデーション層を一元化し入力エラーを早期検出。',
-    result: 'リリース後の入力エラー率を約 20% 削減。商品登録工数を大幅に短縮し、運用コストを削減。',
-    stack: ['TypeScript','NestJS','Next.js','React','PostgreSQL','AWS ECS','S3','GitHub Actions'],
-    metrics: [
-      { label: 'エラー率削減', value: '20%↓', color: '#059669' },
-      { label: 'チーム規模',   value: '5名',   color: '#0284c7' },
-      { label: '担当フェーズ', value: '設計〜運用', color: '#7c3aed' },
-    ],
-    accentColor: '#0284c7', icon: <Code2 size={22} />,
+    title: 'EC サイトリニューアル', titleEn: 'EC Site Renewal',
+    category: 'SaaS', categoryId: 'saas',
+    description: '楽天・Yahoo! ショッピングの商品・在庫をリアルタイム同期する SaaS バックエンドを構築。',
+    result: '入力エラー率を約 20% 削減、商品登録工数を大幅に短縮。',
+    stack: ['TypeScript', 'NestJS', 'Next.js', 'PostgreSQL', 'AWS ECS'],
+    metrics: [{ label: '期間', value: '29ヶ月' }, { label: 'チーム', value: '5〜10名' }, { label: '成果', value: '20%↓' }],
+    accentColor: '#3a7bd5', headerBg: 'linear-gradient(135deg, #3a7bd5 0%, #60a5fa 100%)',
+    icon: '🖥',
   },
   {
-    title: 'クラウド対応 業務 Web システム', titleEn: 'Cloud-Native Business Web App',
-    category: 'Web Application',
-    description: 'TypeScript / React / Node.js スタックで構築した企業向け Web アプリ。要件定義から AWS デプロイまでフルサイクル担当。',
-    challenge: '既存の紙・Excel 運用を完全デジタル化し、部門間のデータ連携を自動化する必要があった。',
-    solution: 'REST API により業務フローをシステム化。AWS EC2 + RDS で可用性を確保し、CloudWatch で監視・障害対応フローを整備。',
-    result: '業務プロセス改善により生産性を約 30% 向上。手動作業時間を週あたり数時間削減。',
-    stack: ['TypeScript','React','Node.js','Python','MySQL','PostgreSQL','AWS EC2','RDS','Docker'],
-    metrics: [
-      { label: '生産性向上',  value: '30%↑',   color: '#059669' },
-      { label: '開発期間',    value: '29ヶ月',  color: '#0284c7' },
-      { label: 'チーム規模',  value: '5〜10名', color: '#7c3aed' },
-    ],
-    accentColor: '#7c3aed', icon: <Cloud size={22} />,
+    title: 'SaaS 予約管理システム', titleEn: 'SaaS Booking System',
+    category: 'SaaS', categoryId: 'saas',
+    description: 'TypeScript / React / Node.js スタックの企業向け予約管理 Web アプリ。要件定義から AWS デプロイまで一貫担当。',
+    result: '業務プロセス改善で生産性を約 30% 向上。手動作業時間を週数時間削減。',
+    stack: ['TypeScript', 'React', 'Node.js', 'MySQL', 'AWS EC2'],
+    metrics: [{ label: '期間', value: '22ヶ月' }, { label: 'チーム', value: '3〜5名' }, { label: '成果', value: '30%↑' }],
+    accentColor: '#e86c5d', headerBg: 'linear-gradient(135deg, #e86c5d 0%, #f97316 100%)',
+    icon: '📅',
   },
   {
-    title: '写真・点検帳票管理システム', titleEn: 'Photo & Inspection Form Management',
-    category: '製造・流通業向け',
-    description: '製造・流通業向けの写真データと点検帳票を一元管理するシステム。Laravel API と React 管理画面で構成。',
-    challenge: '25 名規模のチームで既存レガシーコードに機能追加しながら品質を担保する必要があった。',
-    solution: 'PHPUnit による単体テスト整備とコードレビュープロセスの強化。MySQL インデックスの最適化でクエリ性能を改善。',
-    result: 'データ取得処理の高速化に成功。3 年間の継続開発で正社員登用される実績を達成。',
-    stack: ['PHP','Laravel','JavaScript','React','MySQL','GitHub','Linux'],
-    metrics: [
-      { label: 'チーム規模', value: '25名',   color: '#d97706' },
-      { label: '継続期間',   value: '22ヶ月', color: '#0284c7' },
-      { label: 'DB 最適化',  value: '高速化', color: '#059669' },
-    ],
-    accentColor: '#059669', icon: <Database size={22} />,
+    title: 'リアルタイム在庫ダッシュボード', titleEn: 'Real-time Inventory Dashboard',
+    category: '社内ツール', categoryId: 'tool',
+    description: '製造・流通業向けの写真データと点検帳票を一元管理するシステム。Laravel API + React 管理画面で構成。',
+    result: 'DB インデックス最適化でデータ取得を高速化。3 年間継続開発で正社員登用を達成。',
+    stack: ['PHP', 'Laravel', 'React', 'MySQL', 'Linux'],
+    metrics: [{ label: '期間', value: '3年' }, { label: 'チーム', value: '25名' }, { label: '成果', value: '高速化' }],
+    accentColor: '#2bb5a0', headerBg: 'linear-gradient(135deg, #2bb5a0 0%, #34c78a 100%)',
+    icon: '📊',
   },
   {
-    title: '卸売商品管理システム AWS 移行', titleEn: 'Wholesale System AWS Migration',
-    category: 'クラウド移行 / リプレイス',
-    description: 'オンプレミスで稼働する Java 製商品・在庫管理システムを AWS ECS Fargate + RDS へ移行するリプレイスプロジェクト。',
-    challenge: 'レガシー Java コードベースの解析と、ダウンタイムを最小化しながらクラウドへ移行するアーキテクチャ設計が必要だった。',
-    solution: 'Spring Boot で機能を段階的に改修しながら Docker 化。ECS Fargate で Auto Scaling を実現し、CloudWatch でリアルタイム監視体制を構築。',
-    result: 'AWS 環境への安定移行を達成。CloudWatch による障害の早期検知で運用品質を向上。',
-    stack: ['Java','Spring Boot','React','PostgreSQL','Docker','AWS ECS','Fargate','RDS','CloudWatch','GitHub Actions'],
-    metrics: [
-      { label: '移行先',    value: 'AWS ECS',    color: '#d97706' },
-      { label: '監視体制',  value: 'CloudWatch', color: '#0284c7' },
-      { label: 'チーム規模', value: '3〜5名',    color: '#7c3aed' },
-    ],
-    accentColor: '#d97706', icon: <TrendingUp size={22} />,
+    title: '保険管理バッチ処理システム', titleEn: 'Insurance Batch Processing',
+    category: '社内ツール', categoryId: 'tool',
+    description: 'Spring Boot による保険契約・給付データの大量バッチ処理システムを設計・実装。',
+    result: 'レガシーシステムの解析・機能改修・API 実装を担当。処理時間を大幅に短縮。',
+    stack: ['Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'AWS ECS'],
+    metrics: [{ label: '期間', value: '12ヶ月' }, { label: 'チーム', value: '5名' }, { label: '成果', value: '高速化' }],
+    accentColor: '#8b5cf6', headerBg: 'linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)',
+    icon: '⚙',
+  },
+  {
+    title: '不動産マッチングプラットフォーム', titleEn: 'Real Estate Matching Platform',
+    category: 'プラットフォーム', categoryId: 'platform',
+    description: '物件オーナーとテナントをマッチングするプラットフォームの API とフロントエンドを担当。',
+    result: '物件掲載から契約までのフロー自動化。問い合わせ件数が 2 倍以上に増加。',
+    stack: ['TypeScript', 'NestJS', 'React', 'PostgreSQL', 'S3'],
+    metrics: [{ label: '期間', value: '8ヶ月' }, { label: 'チーム', value: '4名' }, { label: '成果', value: '2x問合' }],
+    accentColor: '#e8a949', headerBg: 'linear-gradient(135deg, #e8a949 0%, #fbbf24 100%)',
+    icon: '🏠',
+  },
+  {
+    title: 'コーポレートサイト 多言語対応', titleEn: 'Corporate Site i18n',
+    category: 'プラットフォーム', categoryId: 'platform',
+    description: 'Next.js App Router + i18n による日本語・英語・中国語 3 言語対応のコーポレートサイトを構築。',
+    result: '海外からのアクセスが 40% 増加。SEO スコアが大幅に改善。',
+    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel', 'i18n'],
+    metrics: [{ label: '期間', value: '4ヶ月' }, { label: 'チーム', value: '2名' }, { label: '成果', value: '40%↑' }],
+    accentColor: '#34c78a', headerBg: 'linear-gradient(135deg, #34c78a 0%, #2bb5a0 100%)',
+    icon: '🌐',
   },
 ];
 
-function ProjectCard({ proj, index }: { proj: Project; index: number }) {
-  const [expanded, setExpanded] = useState(false);
-  const ac = proj.accentColor;
+const FILTER_TABS = [
+  { id: 'all',      label: 'すべて' },
+  { id: 'saas',     label: 'SaaS' },
+  { id: 'tool',     label: '社内ツール' },
+  { id: 'platform', label: 'プラットフォーム' },
+];
 
+function ProjectCard({ proj }: { proj: Project }) {
+  const ac = proj.accentColor;
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-40px' }}
-      transition={{ delay: index * 0.08, duration: 0.55 }}
-      className="rounded-2xl flex flex-col overflow-hidden"
-      style={{ background: '#ffffff', border: `1px solid ${ac}14`, boxShadow: '0 2px 16px rgba(15,23,42,0.06)' }}>
-      <div className="h-[3px]" style={{ background: `linear-gradient(90deg, ${ac}, ${ac}55, transparent)` }} />
-      <div className="p-6 flex flex-col flex-1">
-        <div className="flex items-start justify-between gap-3 mb-4">
-          <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: `${ac}10`, color: ac, border: `1px solid ${ac}20` }}>{proj.icon}</div>
-          <span className="text-[10px] font-mono px-2.5 py-1 rounded-full flex-shrink-0"
-            style={{ background: `${ac}08`, color: ac, border: `1px solid ${ac}22` }}>{proj.category}</span>
+      layout
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.3 }}
+      className="rounded-2xl overflow-hidden flex flex-col"
+      style={{ background: '#fff', border: `1px solid ${ac}18`, boxShadow: '0 2px 16px rgba(45,36,22,0.07)' }}
+    >
+      {/* Gradient header */}
+      <div className="px-5 py-4 flex items-center gap-3" style={{ background: proj.headerBg }}>
+        <span className="text-2xl">{proj.icon}</span>
+        <div className="flex-1 min-w-0">
+          <div className="text-[10px] text-white/70 font-mono mb-0.5">{proj.category}</div>
+          <div className="font-bold text-sm text-white leading-snug">{proj.title}</div>
         </div>
-        <h3 className="text-base font-bold mb-0.5 leading-snug" style={{ color: '#0f172a' }}>{proj.title}</h3>
-        <p className="text-[11px] mb-3" style={{ color: '#94a3b8' }}>{proj.titleEn}</p>
-        <p className="text-sm leading-7 mb-5 flex-1" style={{ color: '#475569' }}>{proj.description}</p>
+      </div>
+
+      <div className="p-5 flex flex-col flex-1">
+        <p className="text-sm leading-6 mb-3 flex-1" style={{ color: '#5a4e3a' }}>{proj.description}</p>
+
+        {/* Result badge */}
+        <div className="flex items-start gap-2 mb-4 p-3 rounded-xl"
+          style={{ background: `${ac}08`, border: `1px solid ${ac}18` }}>
+          <TrendingUp size={13} style={{ color: ac, flexShrink: 0, marginTop: '2px' }} />
+          <p className="text-xs leading-5" style={{ color: ac, fontWeight: 600 }}>{proj.result}</p>
+        </div>
 
         {/* Metrics */}
         <div className="grid grid-cols-3 gap-2 mb-4">
           {proj.metrics.map(m => (
-            <div key={m.label} className="p-2.5 rounded-xl text-center"
-              style={{ background: `${m.color}07`, border: `1px solid ${m.color}18` }}>
-              <div className="text-sm font-bold" style={{ color: m.color }}>{m.value}</div>
-              <div className="text-[10px] mt-0.5" style={{ color: '#94a3b8' }}>{m.label}</div>
+            <div key={m.label} className="text-center p-2 rounded-lg"
+              style={{ background: `${ac}08`, border: `1px solid ${ac}14` }}>
+              <div className="text-sm font-black" style={{ color: ac }}>{m.value}</div>
+              <div className="text-[10px] mt-0.5" style={{ color: '#a89880' }}>{m.label}</div>
             </div>
           ))}
         </div>
 
-        {/* Stack */}
+        {/* Stack tags */}
         <div className="flex flex-wrap gap-1.5 mb-4">
-          {proj.stack.slice(0, 5).map(s => <span key={s} className="tag-neutral" style={{ fontSize: '0.67rem' }}>{s}</span>)}
-          {proj.stack.length > 5 && <span className="tag-neutral" style={{ fontSize: '0.67rem' }}>+{proj.stack.length - 5}</span>}
+          {proj.stack.map(s => <span key={s} className="tag-neutral">{s}</span>)}
         </div>
 
-        <button onClick={() => setExpanded(o => !o)} className="flex items-center gap-1.5 text-xs font-semibold mt-auto" style={{ color: ac }}>
-          <span>{expanded ? '詳細を閉じる' : '課題・解決策・成果を見る'}</span>
-          <ChevronDown size={14} style={{ transform: expanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-        </button>
-
-        <AnimatePresence initial={false}>
-          {expanded && (
-            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.28 }} style={{ overflow: 'hidden' }}>
-              <div className="mt-4 space-y-3 pt-4" style={{ borderTop: `1px solid ${ac}10` }}>
-                {[
-                  { label: '課題',   text: proj.challenge, color: '#d97706' },
-                  { label: '解決策', text: proj.solution,  color: ac },
-                  { label: '成果',   text: proj.result,    color: '#059669' },
-                ].map(item => (
-                  <div key={item.label} className="flex gap-3">
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded flex-shrink-0 h-fit mt-0.5"
-                      style={{ background: `${item.color}10`, color: item.color }}>{item.label}</span>
-                    <p className="text-xs leading-6" style={{ color: '#475569' }}>{item.text}</p>
-                  </div>
-                ))}
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  {proj.stack.map(s => <span key={s} className="tag-neutral" style={{ fontSize: '0.67rem' }}>{s}</span>)}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Links */}
+        <div className="flex items-center gap-2 mt-auto">
+          <a href="#contact" className="btn-ghost text-xs flex-1 justify-center"
+            style={{ color: ac, borderColor: `${ac}30` }}>
+            <ExternalLink size={12} />
+            詳細を見る
+          </a>
+          <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="btn-ghost text-xs">
+            <Github size={12} />
+            GitHub
+          </a>
+        </div>
       </div>
     </motion.div>
   );
 }
 
 export default function Projects() {
-  return (
-    <section id="projects" className="section" style={{ background: '#f8fafc' }}>
-      <div className="absolute inset-0 z-0" style={{
-        backgroundImage: `url('https://images.unsplash.com/photo-1551434678-e076c223a692?w=1920&q=80&fit=crop')`,
-        backgroundSize: 'cover', backgroundPosition: 'center 40%',
-      }} />
-      <div className="absolute inset-0 z-0" style={{ background: 'rgba(248,250,252,0.93)' }} />
-      <div className="absolute top-0 left-0 right-0 h-px" style={{
-        background: 'linear-gradient(90deg, transparent, rgba(2,132,199,0.15), transparent)',
-      }} />
+  const [activeFilter, setActiveFilter] = useState('all');
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        <motion.div className="text-center mb-14"
+  const filtered = activeFilter === 'all'
+    ? PROJECTS
+    : PROJECTS.filter(p => p.categoryId === activeFilter);
+
+  return (
+    <section id="projects" className="section" style={{ background: 'var(--bg)' }}>
+      <div className="max-w-6xl mx-auto px-6">
+
+        {/* Header */}
+        <motion.div className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <p className="section-label justify-center">FEATURED PROJECTS</p>
-          <h2 className="text-4xl md:text-5xl font-black mt-2 mb-3" style={{ color: '#0f172a' }}>主要プロジェクト</h2>
+          <span className="section-label">FEATURED PROJECTS</span>
+          <h2 className="text-3xl md:text-4xl font-black mt-3 mb-2" style={{ color: '#2d2416' }}>実績・プロジェクト</h2>
           <div className="divider" />
-          <p className="mt-5 text-sm max-w-lg mx-auto" style={{ color: '#64748b' }}>
-            実際に携わったプロジェクトの一部です。課題・解決策・成果のカードを展開してご覧いただけます。
+          <p className="mt-4 text-sm max-w-lg mx-auto" style={{ color: '#8c7d65' }}>
+            細かい実務まで担当してプロジェクトで学び、さまざまな技術でクライアントの課題を解決してきました。
+            設計・開発・保守まで幅広くご対応します。
           </p>
         </motion.div>
-        <div className="grid md:grid-cols-2 gap-5">
-          {PROJECTS.map((proj, i) => <ProjectCard key={i} proj={proj} index={i} />)}
-        </div>
+
+        {/* Filter tabs */}
+        <motion.div className="flex flex-wrap justify-center gap-2 mb-8"
+          initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+          {FILTER_TABS.map(tab => {
+            const isActive = activeFilter === tab.id;
+            return (
+              <button key={tab.id} onClick={() => setActiveFilter(tab.id)}
+                className="px-5 py-2 rounded-full text-sm font-semibold transition-all"
+                style={{
+                  background: isActive ? '#2bb5a0' : '#fff',
+                  color: isActive ? '#fff' : '#5a4e3a',
+                  border: isActive ? '1px solid #2bb5a0' : '1px solid rgba(45,36,22,0.12)',
+                  boxShadow: isActive ? '0 4px 12px rgba(43,181,160,0.25)' : '0 1px 4px rgba(45,36,22,0.06)',
+                }}>
+                {tab.label}
+              </button>
+            );
+          })}
+        </motion.div>
+
+        {/* Grid */}
+        <AnimatePresence mode="wait">
+          <motion.div key={activeFilter}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {filtered.map((proj, i) => <ProjectCard key={proj.title} proj={proj} />)}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Bottom CTA */}
+        <motion.div className="text-center mt-12"
+          initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+          <div className="inline-flex items-center gap-2 text-sm mb-4" style={{ color: '#8c7d65' }}>
+            <Calendar size={14} />
+            <span>さらに多くのプロジェクトをご紹介できます</span>
+          </div>
+          <div>
+            <a href="#contact" className="btn-primary">
+              <Users size={16} />
+              すべての実績を確認する
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

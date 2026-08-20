@@ -1,19 +1,34 @@
 'use client';
 import { motion } from 'framer-motion';
-import { MapPin, GraduationCap, Languages, Award, CheckCircle2, Zap, Users, Target } from 'lucide-react';
+import Image from 'next/image';
+import { MapPin, GraduationCap, Languages, Award, CheckCircle2, Briefcase, TrendingUp, Users, Zap } from 'lucide-react';
 
-const HIGHLIGHTS = [
-  { icon: <MapPin size={16} />,        label: '所在地',   value: '台北市 大安區（台湾）',                           color: '#0284c7' },
-  { icon: <GraduationCap size={16} />, label: '最終学歴', value: '淡江大学 情報工学科 学士（2021年卒）',             color: '#7c3aed' },
-  { icon: <Languages size={16} />,     label: '語学力',   value: '中国語（ネイティブ）・日本語（ビジネス）・英語（技術読解）', color: '#059669' },
-  { icon: <Award size={16} />,         label: '資格',     value: '基本情報技術者試験 合格（2023年）',               color: '#d97706' },
+const CAREER = [
+  {
+    period: '2021.10 — 2024.03', company: '宏碁股份有限公司 (Acer Inc.)',
+    role: 'フルスタックエンジニア', type: '正社員', typeColor: '#3a7bd5',
+    desc: 'TypeScript / React / Node.js スタックの企業向け Web アプリを要件定義から AWS デプロイまで一貫担当。業務改善で生産性を約 30% 向上。',
+    color: '#3a7bd5',
+  },
+  {
+    period: '2024.04 — 2026.01', company: '精誠資訊股份有限公司 (Systex)',
+    role: 'バックエンドエンジニア', type: '業務委託 → 正社員', typeColor: '#8b5cf6',
+    desc: 'PHP（Laravel）による製造・流通向け帳票管理システムの開発保守。25 名体制のチーム開発で実績を積み、正社員へ登用。',
+    color: '#8b5cf6',
+  },
+  {
+    period: '2026.03 — 現在', company: 'フリーランスエンジニア',
+    role: 'フルスタックエンジニア', type: 'フリーランス', typeColor: '#2bb5a0',
+    desc: 'Java（Spring Boot）・React / TypeScript（NestJS）を用いた業務システム開発案件を複数並行対応。設計から運用まで一貫担当。',
+    color: '#2bb5a0',
+  },
 ];
 
-const NUMBERS = [
-  { value: '5+',  label: '年の開発経験',   sub: 'Years Exp.',  color: '#0284c7', icon: <Zap size={16} /> },
-  { value: '30%', label: '業務効率化実績', sub: 'Productivity', color: '#059669', icon: <Target size={16} /> },
-  { value: '20%', label: 'エラー率削減',   sub: 'Error Reduce', color: '#7c3aed', icon: <CheckCircle2 size={16} /> },
-  { value: '25+', label: 'チーム開発経験', sub: 'Team Members', color: '#d97706', icon: <Users size={16} /> },
+const HIGHLIGHTS = [
+  { icon: <MapPin size={15} />,        label: '所在地',   value: '台北市 大安區（台湾）',                           color: '#3a7bd5' },
+  { icon: <GraduationCap size={15} />, label: '最終学歴', value: '淡江大学 情報工学科 学士（2021年卒）',             color: '#8b5cf6' },
+  { icon: <Languages size={15} />,     label: '語学力',   value: '中国語（ネイティブ）・日本語（ビジネス）・英語（技術読解）', color: '#2bb5a0' },
+  { icon: <Award size={15} />,         label: '資格',     value: '基本情報技術者試験 合格（2023年）',               color: '#e8a949' },
 ];
 
 const STRENGTHS = [
@@ -21,183 +36,182 @@ const STRENGTHS = [
   '日本語のみでの仕様確認・コードレビュー実績 2年以上',
   'チーム規模 3〜25 名の多様な環境で即戦力として活躍',
   '製造・流通・EC など複数ドメインの深い業務知識',
-  '業務プロセス改善で定量的な成果を継続提供',
 ];
 
-const LANGS = [
-  { lang: '中国語', level: '母国語',   pct: 100, color: '#0284c7' },
-  { lang: '日本語', level: 'ビジネス', pct: 82,  color: '#7c3aed' },
-  { lang: '英語',   level: '技術読解', pct: 60,  color: '#059669' },
+const NUMBERS = [
+  { value: '5+',  label: '年の開発経験',   color: '#2bb5a0', icon: <Zap size={18} /> },
+  { value: '30+', label: '完了プロジェクト', color: '#3a7bd5', icon: <Briefcase size={18} /> },
+  { value: '30%', label: '業務効率化実績',  color: '#8b5cf6', icon: <TrendingUp size={18} /> },
+  { value: '25+', label: 'チーム開発経験',  color: '#e8a949', icon: <Users size={18} /> },
 ];
 
 const fadeUp = (delay = 0) => ({
-  hidden:  { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.65, delay, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] } },
+  hidden:  { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] } },
 });
 
 export default function About() {
   return (
-    <section id="about" className="section" style={{ background: '#f8fafc' }}>
-      {/* Background photo overlay */}
-      <div className="absolute inset-0 z-0" style={{
-        backgroundImage: `url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1920&q=80&fit=crop')`,
-        backgroundSize: 'cover', backgroundPosition: 'center 30%',
-      }} />
-      <div className="absolute inset-0 z-0" style={{ background: 'rgba(248,250,252,0.93)' }} />
-
-      <div className="absolute top-0 left-0 right-0 h-px" style={{
-        background: 'linear-gradient(90deg, transparent, rgba(124,58,237,0.2), rgba(2,132,199,0.2), transparent)',
-      }} />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
+    <section id="about" className="section" style={{ background: 'var(--bg)' }}>
+      <div className="max-w-5xl mx-auto px-6">
 
         {/* Header */}
-        <motion.div className="text-center mb-16"
+        <motion.div className="text-center mb-14"
           initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp()}>
-          <p className="section-label justify-center">ABOUT ME</p>
-          <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3" style={{ color: '#0f172a' }}>自己紹介</h2>
+          <span className="section-label">ABOUT ME</span>
+          <h2 className="text-3xl md:text-4xl font-black mt-3 mb-2" style={{ color: '#2d2416' }}>プロフィール</h2>
           <div className="divider" />
-          <p className="mt-5 text-sm max-w-md mx-auto" style={{ color: '#64748b' }}>
+          <p className="mt-4 text-sm max-w-md mx-auto" style={{ color: '#8c7d65' }}>
             台湾出身のフルスタックエンジニア。設計から運用まで一貫して担当します。
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-14 items-start">
+        <div className="grid lg:grid-cols-5 gap-10 items-start">
 
-          {/* Left */}
-          <div className="space-y-7">
+          {/* ── Left: Profile card ── */}
+          <motion.div className="lg:col-span-2 space-y-4"
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.1)}>
 
-            {/* Profile card */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.1)}
-              className="rounded-2xl overflow-hidden"
-              style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.08)', boxShadow: '0 2px 16px rgba(15,23,42,0.06)' }}>
-              <div className="px-5 py-3.5 flex items-center gap-2" style={{ borderBottom: '1px solid rgba(15,23,42,0.06)', background: '#f8fafc' }}>
-                <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#f43f5e' }} />
-                <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#f59e0b' }} />
-                <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#10b981' }} />
-                <span className="ml-2 text-[10px]" style={{ color: '#94a3b8', fontFamily: 'monospace' }}>profile.tsx</span>
-              </div>
-              <div className="p-6">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center font-black text-xl flex-shrink-0 text-white"
-                    style={{ background: 'linear-gradient(135deg, #0284c7, #8b5cf6)', boxShadow: '0 4px 14px rgba(2,132,199,0.25)' }}>U</div>
-                  <div>
-                    <div className="font-black text-lg leading-tight" style={{ color: '#0f172a' }}>URAN</div>
-                    <div className="text-xs mt-0.5" style={{ color: '#64748b', fontFamily: 'monospace' }}>Full-Stack Engineer</div>
-                    <div className="flex items-center gap-1.5 mt-1.5">
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: '#059669' }} />
-                        <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: '#059669' }} />
-                      </span>
-                      <span className="text-[10px] font-semibold" style={{ color: '#059669' }}>Available for work</span>
-                    </div>
+            {/* Photo + basic info card */}
+            <div className="rounded-2xl overflow-hidden"
+              style={{ background: '#fff', border: '1px solid rgba(45,36,22,0.09)', boxShadow: '0 2px 20px rgba(45,36,22,0.07)' }}>
+              {/* Top gradient bar */}
+              <div className="h-24 flex items-end px-5 pb-0 relative"
+                style={{ background: 'linear-gradient(135deg, #2bb5a0 0%, #3a7bd5 100%)' }}>
+                <div className="absolute bottom-[-36px] left-5">
+                  <div className="w-20 h-20 rounded-2xl overflow-hidden"
+                    style={{ border: '3px solid #fff', boxShadow: '0 4px 16px rgba(45,36,22,0.12)' }}>
+                    <Image src="/hero-profile.jpg" alt="URAN" width={80} height={80} className="object-cover w-full h-full" />
                   </div>
                 </div>
-                <div className="space-y-4 text-sm leading-8" style={{ color: '#475569' }}>
-                  <p>台湾出身のフルスタックエンジニア。
-                    <span style={{ color: '#0f172a', fontWeight: 700 }}>React・TypeScript・Java（Spring Boot）・PHP（Laravel）</span>
-                    を中心に、製造・流通・EC 業界の業務システム開発に
-                    <span style={{ color: '#0284c7', fontWeight: 700 }}> 5年以上</span>携わってきました。
-                  </p>
-                  <p>画面実装から API 設計・AWS デプロイ・運用保守まで
-                    <span style={{ color: '#0f172a', fontWeight: 600 }}>一気通貫で担当</span>できるため、少人数チームでも大きな価値を提供できます。
-                  </p>
-                  <p>業務改善で生産性を<span style={{ color: '#059669', fontWeight: 700 }}>約 30% 向上</span>、
-                    フォーム改善でエラー率を<span style={{ color: '#059669', fontWeight: 700 }}>約 20% 削減</span>した実績があります。
-                  </p>
-                </div>
               </div>
-            </motion.div>
+              <div className="pt-12 px-5 pb-5">
+                <div className="font-black text-lg" style={{ color: '#2d2416' }}>URAN</div>
+                <div className="text-xs mb-1" style={{ color: '#8c7d65', fontFamily: 'monospace' }}>Full-Stack Engineer</div>
+                <div className="flex items-center gap-1.5 mb-4">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: '#34c78a' }} />
+                    <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: '#34c78a' }} />
+                  </span>
+                  <span className="text-xs font-semibold" style={{ color: '#34c78a' }}>Available for work</span>
+                </div>
+                <p className="text-sm leading-7" style={{ color: '#5a4e3a' }}>
+                  台湾出身のフルスタックエンジニア。
+                  <span style={{ color: '#2d2416', fontWeight: 700 }}>React・TypeScript・Java・PHP</span>
+                  を中心に製造・流通・EC 業界の業務システム開発に
+                  <span style={{ color: '#2bb5a0', fontWeight: 700 }}> 5年以上</span>携わっています。
+                </p>
+              </div>
+            </div>
+
+            {/* Highlights */}
+            <div className="space-y-2">
+              {HIGHLIGHTS.map((h, i) => (
+                <motion.div key={h.label}
+                  initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.15 + i * 0.08)}
+                  className="flex items-start gap-3 p-3.5 rounded-xl"
+                  style={{ background: '#fff', border: `1px solid ${h.color}18`, boxShadow: '0 1px 6px rgba(45,36,22,0.05)' }}>
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{ background: `${h.color}12`, color: h.color }}>
+                    {h.icon}
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-bold tracking-widest mb-0.5" style={{ color: h.color, fontFamily: 'monospace' }}>{h.label.toUpperCase()}</div>
+                    <div className="text-xs leading-5" style={{ color: '#5a4e3a' }}>{h.value}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Numbers grid */}
+            <div className="grid grid-cols-2 gap-2">
+              {NUMBERS.map((n) => (
+                <div key={n.label} className="p-3 rounded-xl text-center"
+                  style={{ background: '#fff', border: `1px solid ${n.color}18`, boxShadow: '0 1px 6px rgba(45,36,22,0.05)' }}>
+                  <div className="flex items-center justify-center mb-1" style={{ color: n.color }}>{n.icon}</div>
+                  <div className="text-xl font-black mb-0.5" style={{ color: n.color }}>{n.value}</div>
+                  <div className="text-[10px] leading-tight" style={{ color: '#8c7d65' }}>{n.label}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* ── Right: Career timeline ── */}
+          <motion.div className="lg:col-span-3"
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.15)}>
+
+            <div className="text-[10px] font-bold tracking-[0.3em] mb-5" style={{ color: '#2bb5a0', fontFamily: 'monospace' }}>✦ CAREER HISTORY</div>
+
+            {/* Timeline */}
+            <div className="relative space-y-4">
+              {/* Vertical line */}
+              <div className="absolute left-[19px] top-3 bottom-3 w-[2px] rounded-full"
+                style={{ background: 'linear-gradient(to bottom, #3a7bd5, #8b5cf6, #2bb5a0)' }} />
+
+              {CAREER.map((job, i) => (
+                <motion.div key={i}
+                  initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+                  transition={{ delay: 0.2 + i * 0.12, duration: 0.55 }}
+                  className="relative pl-12">
+                  {/* Dot */}
+                  <div className="absolute left-0 top-3.5 w-10 h-10 rounded-full flex items-center justify-center"
+                    style={{ background: '#fff', border: `2px solid ${job.color}`, boxShadow: `0 0 0 4px ${job.color}18`, zIndex: 10 }}>
+                    <div className="w-3 h-3 rounded-full" style={{ background: job.color }} />
+                  </div>
+
+                  <div className="rounded-2xl overflow-hidden"
+                    style={{ background: '#fff', border: `1px solid ${job.color}18`, boxShadow: '0 2px 12px rgba(45,36,22,0.06)' }}>
+                    {/* Color top bar */}
+                    <div className="h-1" style={{ background: `linear-gradient(90deg, ${job.color}, ${job.color}50, transparent)` }} />
+                    <div className="p-4">
+                      <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+                        <div>
+                          <div className="flex items-center gap-2 flex-wrap mb-0.5">
+                            <h3 className="text-sm font-black" style={{ color: '#2d2416' }}>{job.company}</h3>
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full"
+                              style={{ background: `${job.typeColor}12`, color: job.typeColor, border: `1px solid ${job.typeColor}25` }}>
+                              {job.type}
+                            </span>
+                          </div>
+                          <div className="text-xs font-semibold" style={{ color: job.color }}>{job.role}</div>
+                        </div>
+                        <div className="text-[10px] font-mono px-2 py-1 rounded-lg"
+                          style={{ background: `${job.color}0c`, color: job.color, whiteSpace: 'nowrap' }}>
+                          {job.period}
+                        </div>
+                      </div>
+                      <p className="text-xs leading-6" style={{ color: '#5a4e3a' }}>{job.desc}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
 
             {/* Strengths */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.2)}>
-              <div className="text-[10px] font-bold tracking-[0.35em] mb-4" style={{ color: '#0284c7', fontFamily: 'monospace' }}>✦ STRENGTHS</div>
-              <ul className="space-y-2.5">
+            <div className="mt-6">
+              <div className="text-[10px] font-bold tracking-[0.3em] mb-3" style={{ color: '#2bb5a0', fontFamily: 'monospace' }}>✦ STRENGTHS</div>
+              <ul className="space-y-2">
                 {STRENGTHS.map((s, i) => (
                   <motion.li key={i}
-                    initial={{ opacity: 0, x: -14 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-                    transition={{ delay: 0.2 + i * 0.07 }}
-                    className="flex items-start gap-3 text-sm py-2.5 px-4 rounded-xl"
-                    style={{ background: '#ffffff', border: '1px solid rgba(2,132,199,0.10)', color: '#334155', boxShadow: '0 1px 4px rgba(15,23,42,0.04)' }}>
-                    <CheckCircle2 size={15} className="flex-shrink-0 mt-0.5" style={{ color: '#059669' }} />
-                    <span>{s}</span>
+                    initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+                    transition={{ delay: 0.4 + i * 0.07 }}
+                    className="flex items-start gap-2.5 text-sm py-2 px-3.5 rounded-xl"
+                    style={{ background: '#fff', border: '1px solid rgba(45,36,22,0.07)', color: '#5a4e3a' }}>
+                    <CheckCircle2 size={14} className="flex-shrink-0 mt-0.5" style={{ color: '#2bb5a0' }} />
+                    {s}
                   </motion.li>
                 ))}
               </ul>
-            </motion.div>
+            </div>
 
             {/* Tags */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.3)} className="flex flex-wrap gap-2">
+            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+              transition={{ delay: 0.6 }} className="flex flex-wrap gap-2 mt-4">
               {['即戦力', 'フルスタック', 'チーム開発', 'AWS運用', 'CI/CD', '多言語対応', '設計〜納品', 'アジャイル'].map(tag => (
                 <span key={tag} className="tag text-[11px]">{tag}</span>
               ))}
             </motion.div>
-          </div>
-
-          {/* Right */}
-          <div className="space-y-4">
-
-            {HIGHLIGHTS.map((h, i) => (
-              <motion.div key={h.label}
-                initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.12 + i * 0.1)}
-                whileHover={{ x: 4, transition: { duration: 0.2 } }}
-                className="flex items-start gap-4 p-4 rounded-2xl"
-                style={{ background: '#ffffff', border: `1px solid ${h.color}14`, boxShadow: '0 2px 8px rgba(15,23,42,0.05)' }}>
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: `${h.color}10`, color: h.color, border: `1px solid ${h.color}22` }}>
-                  {h.icon}
-                </div>
-                <div>
-                  <div className="text-[10px] font-bold tracking-widest mb-1" style={{ color: h.color, fontFamily: 'monospace' }}>{h.label.toUpperCase()}</div>
-                  <div className="text-sm leading-6" style={{ color: '#334155' }}>{h.value}</div>
-                </div>
-              </motion.div>
-            ))}
-
-            {/* Language bars */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.55)}
-              className="p-5 rounded-2xl"
-              style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.08)', boxShadow: '0 2px 8px rgba(15,23,42,0.05)' }}>
-              <div className="text-[10px] font-bold tracking-widest mb-4" style={{ color: '#0284c7', fontFamily: 'monospace' }}>LANGUAGE SKILLS</div>
-              <div className="space-y-4">
-                {LANGS.map((l, i) => (
-                  <div key={l.lang}>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-semibold" style={{ color: '#1e293b' }}>{l.lang}</span>
-                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full"
-                        style={{ background: `${l.color}10`, color: l.color, fontFamily: 'monospace' }}>{l.level}</span>
-                    </div>
-                    <div className="progress-track">
-                      <motion.div className="progress-bar"
-                        style={{ background: `linear-gradient(90deg, ${l.color}88, ${l.color})` }}
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${l.pct}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.1, delay: 0.6 + i * 0.15, ease: 'easeOut' }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Achievement numbers */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.65)} className="grid grid-cols-2 gap-3">
-              {NUMBERS.map((n) => (
-                <motion.div key={n.label} whileHover={{ scale: 1.03 }}
-                  className="p-4 rounded-2xl text-center relative overflow-hidden"
-                  style={{ background: '#ffffff', border: `1px solid ${n.color}14`, boxShadow: '0 2px 8px rgba(15,23,42,0.05)' }}>
-                  <div className="absolute inset-0 pointer-events-none"
-                    style={{ background: `radial-gradient(ellipse at 50% 0%, ${n.color}06 0%, transparent 70%)` }} />
-                  <div className="relative z-10">
-                    <div className="flex items-center justify-center mb-1" style={{ color: n.color }}>{n.icon}</div>
-                    <div className="text-2xl font-black mb-0.5" style={{ color: n.color }}>{n.value}</div>
-                    <div className="text-[11px] leading-tight" style={{ color: '#64748b' }}>{n.label}</div>
-                    <div className="text-[9px] mt-0.5" style={{ color: '#94a3b8', fontFamily: 'monospace' }}>{n.sub}</div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
