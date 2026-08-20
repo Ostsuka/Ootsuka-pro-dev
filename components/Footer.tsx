@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Heart, ArrowUp, Github, Twitter } from 'lucide-react';
+import { Mail, MapPin, Heart, ArrowUp, GitBranch, Globe } from 'lucide-react';
 
 const NAV_GROUPS = [
   {
@@ -88,8 +88,8 @@ export default function Footer() {
             </div>
             <div className="flex items-center gap-2.5">
               {[
-                { href: 'https://github.com/', icon: <Github size={15} />, label: 'GitHub' },
-                { href: 'https://twitter.com/', icon: <Twitter size={15} />, label: 'Twitter' },
+                { href: 'https://github.com/', icon: <GitBranch size={15} />, label: 'GitHub' },
+                { href: 'https://twitter.com/', icon: <Globe size={15} />, label: 'Web' },
               ].map((s, i) => (
                 <a key={i} href={s.href} target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:opacity-80"

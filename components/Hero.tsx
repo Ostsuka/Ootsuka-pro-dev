@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Mail, Github, ArrowDown, CheckCircle2 } from 'lucide-react';
+import { Mail, GitBranch, ArrowDown, CheckCircle2 } from 'lucide-react';
 
 /* ── Typewriter ──────────────────────────────────── */
 const ROLES = [
@@ -64,7 +64,9 @@ const TRUST = [
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section
@@ -239,7 +241,7 @@ export default function Hero() {
                 まずは無料相談する
               </a>
               <a href="#projects" className="btn-outline">
-                <Github size={16} />
+                <GitBranch size={16} />
                 実績を見る
               </a>
             </motion.div>

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, TrendingUp, Users, Calendar } from 'lucide-react';
+import { ExternalLink, GitBranch, TrendingUp, Users, Calendar } from 'lucide-react';
 
 interface Metric { label: string; value: string; }
 interface Project {
@@ -137,7 +137,7 @@ function ProjectCard({ proj }: { proj: Project }) {
             詳細を見る
           </a>
           <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="btn-ghost text-xs">
-            <Github size={12} />
+            <GitBranch size={12} />
             GitHub
           </a>
         </div>
@@ -195,7 +195,7 @@ export default function Projects() {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {filtered.map((proj, i) => <ProjectCard key={proj.title} proj={proj} />)}
+            {filtered.map((proj) => <ProjectCard key={proj.title} proj={proj} />)}
           </motion.div>
         </AnimatePresence>
 
