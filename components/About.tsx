@@ -53,7 +53,20 @@ const fadeUp = (delay = 0) => ({
 export default function About() {
   return (
     <section id="about" className="section" style={{ background: 'var(--bg)' }}>
-      <div className="max-w-5xl mx-auto px-6">
+      {/* Background – Japanese woman presenting in business meeting */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1800&auto=format&fit=crop&q=80')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{ background: 'rgba(245,238,216,0.90)' }}
+      />
+      <div className="relative z-10 max-w-5xl mx-auto px-6">
 
         {/* Header */}
         <motion.div className="text-center mb-14"

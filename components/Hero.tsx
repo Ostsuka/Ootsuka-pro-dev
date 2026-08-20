@@ -72,13 +72,26 @@ export default function Hero() {
     <section
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: 'var(--bg)' }}
     >
-      {/* Subtle warm blobs */}
-      <div className="absolute top-[-120px] right-[-120px] w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(43,181,160,0.10) 0%, transparent 65%)' }} />
-      <div className="absolute bottom-[-80px] left-[-80px] w-[400px] h-[400px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(58,123,213,0.08) 0%, transparent 65%)' }} />
+      {/* Background photo – Japanese woman working in modern office */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1800&auto=format&fit=crop&q=80')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+        }}
+      />
+      {/* Warm cream overlay – keeps readability while showing the photo */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{ background: 'linear-gradient(135deg, rgba(245,238,216,0.92) 0%, rgba(237,230,204,0.85) 50%, rgba(245,238,216,0.78) 100%)' }}
+      />
+      {/* Accent blobs on top of overlay */}
+      <div className="absolute top-[-120px] right-[-120px] w-[500px] h-[500px] rounded-full pointer-events-none z-0"
+        style={{ background: 'radial-gradient(circle, rgba(43,181,160,0.12) 0%, transparent 65%)' }} />
+      <div className="absolute bottom-[-80px] left-[-80px] w-[400px] h-[400px] rounded-full pointer-events-none z-0"
+        style={{ background: 'radial-gradient(circle, rgba(58,123,213,0.10) 0%, transparent 65%)' }} />
 
       <div className="relative z-10 w-full max-w-5xl mx-auto px-6 pt-24 pb-16">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">

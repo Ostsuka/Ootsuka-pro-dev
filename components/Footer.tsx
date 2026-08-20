@@ -37,10 +37,20 @@ export default function Footer() {
   };
 
   return (
-    <footer style={{ background: '#2d2416', color: '#c8b89a' }}>
+    <footer style={{ background: '#2d2416', color: '#c8b89a', position: 'relative', overflow: 'hidden' }}>
+      {/* Subtle dark texture overlay */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&auto=format&fit=crop&q=60')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center bottom',
+          opacity: 0.08,
+        }}
+      />
 
       {/* CTA banner */}
-      <div style={{ background: 'linear-gradient(135deg, #2bb5a0, #3a7bd5)' }}>
+      <div className="relative z-10" style={{ background: 'linear-gradient(135deg, #2bb5a0, #3a7bd5)' }}>
         <div className="max-w-5xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="text-xl font-black text-white mb-1">プロジェクトのご相談、お気軽に</h3>
@@ -55,7 +65,7 @@ export default function Footer() {
       </div>
 
       {/* Main footer */}
-      <div className="max-w-5xl mx-auto px-6 pt-12 pb-8">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 pt-12 pb-8">
         <div className="grid md:grid-cols-4 gap-10 mb-10">
 
           {/* Brand column */}

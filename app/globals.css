@@ -110,9 +110,35 @@ body {
 
 /* ─── Section base ─── */
 .section {
-  padding: 6rem 0;
+  padding: 7rem 0;
   position: relative;
   overflow: hidden;
+}
+
+/* ─── Section bg image overlay ─── */
+.section-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.section-bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.section > .section-bg,
+.section > .section-bg-overlay {
+  pointer-events: none;
+}
+
+.section > *:not(.section-bg):not(.section-bg-overlay) {
+  position: relative;
+  z-index: 2;
 }
 
 /* ─── Section Label (small pill above title) ─── */

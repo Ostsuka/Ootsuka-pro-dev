@@ -143,7 +143,20 @@ function ProjectCard({ proj, color, index }: { proj: Project; color: string; ind
 export default function Experience() {
   return (
     <section id="experience" className="section" style={{ background: 'var(--bg)' }}>
-      <div className="max-w-5xl mx-auto px-6">
+      {/* Background – focused engineer working late, warm office atmosphere */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1800&auto=format&fit=crop&q=80')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{ background: 'rgba(237,230,204,0.92)' }}
+      />
+      <div className="relative z-10 max-w-5xl mx-auto px-6">
 
         <motion.div className="text-center mb-14"
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>

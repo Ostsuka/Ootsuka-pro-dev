@@ -56,7 +56,20 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section" style={{ background: 'var(--bg2)' }}>
-      <div className="max-w-5xl mx-auto px-6">
+      {/* Background – Japanese city nature blend / cherry blossoms */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1800&auto=format&fit=crop&q=80')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{ background: 'rgba(237,230,204,0.91)' }}
+      />
+      <div className="relative z-10 max-w-5xl mx-auto px-6">
 
         {/* Header */}
         <motion.div className="text-center mb-12"
