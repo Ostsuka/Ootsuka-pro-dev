@@ -34,12 +34,12 @@ export default function Hero() {
       ref={ref}
       style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
     >
-      {/* ── Parallax background — Japanese business meeting (2 women + 1 man) ── */}
+      {/* ── Parallax background — Software Engineer profile ── */}
       <motion.div
         className="section-bg"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1920&auto=format&fit=crop&q=85')",
-          backgroundPosition: 'center 30%',
+          backgroundImage: "url('/hero-profile.jpg')",
+          backgroundPosition: 'center center',
           y: bgY,
           scale: 1.08,
         }}
