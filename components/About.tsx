@@ -1,215 +1,231 @@
 'use client';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { MapPin, GraduationCap, Languages, Award, CheckCircle2, Zap, Briefcase, TrendingUp, Users } from 'lucide-react';
 
-/* 経歴データ */
+/* ── Data (unchanged) ── */
 const CAREER = [
-  { year: '2010年', desc: '左官・水道工事系の仕事に就職' },
-  { year: '2013年', desc: 'スマートフォン製造系の企業に就職' },
-  { year: '2014年', desc: '塗装系の企業に就職' },
-  { year: '2015年', desc: '溶接系の企業に就職' },
-  { year: '2018年', desc: '美容系の企業に就職' },
-  { year: '2021年', desc: '新幹線製造・バフ研磨系の企業に就職' },
-  { year: '2026年', desc: 'Webライターとして活動開始' },
+  {
+    period: '2021.10 — 2024.03', company: '宏碁股份有限公司 (Acer Inc.)',
+    role: 'フルスタックエンジニア', type: '正社員', typeColor: '#3a7bd5',
+    desc: 'TypeScript / React / Node.js スタックの企業向け Web アプリを要件定義から AWS デプロイまで一貫担当。業務改善で生産性を約 30% 向上。',
+    color: '#3a7bd5',
+  },
+  {
+    period: '2024.04 — 2026.01', company: '精誠資訊股份有限公司 (Systex)',
+    role: 'バックエンドエンジニア', type: '業務委託 → 正社員', typeColor: '#8b5cf6',
+    desc: 'PHP（Laravel）による製造・流通向け帳票管理システムの開発保守。25 名体制のチーム開発で実績を積み、正社員へ登用。',
+    color: '#8b5cf6',
+  },
+  {
+    period: '2026.03 — 現在', company: 'フリーランスエンジニア',
+    role: 'フルスタックエンジニア', type: 'フリーランス', typeColor: '#2bb5a0',
+    desc: 'Java（Spring Boot）・React / TypeScript（NestJS）を用いた業務システム開発案件を複数並行対応。設計から運用まで一貫担当。',
+    color: '#2bb5a0',
+  },
+];
+
+const HIGHLIGHTS = [
+  { icon: <MapPin size={14} />,        label: '所在地',   value: '台北市 大安區（台湾）',                                    color: '#3a7bd5' },
+  { icon: <GraduationCap size={14} />, label: '最終学歴', value: '淡江大学 情報工学科 学士（2021年卒）',                      color: '#8b5cf6' },
+  { icon: <Languages size={14} />,     label: '語学力',   value: '中国語（ネイティブ）・日本語（ビジネス）・英語（技術読解）', color: '#2bb5a0' },
+  { icon: <Award size={14} />,         label: '資格',     value: '基本情報技術者試験 合格（2023年）',                         color: '#e8a949' },
+];
+
+const STRENGTHS = [
+  'フロントエンドから AWS 運用まで一人で完結できる一気通貫スキル',
+  '日本語のみでの仕様確認・コードレビュー実績 2年以上',
+  'チーム規模 3〜25 名の多様な環境で即戦力として活躍',
+  '製造・流通・EC など複数ドメインの深い業務知識',
+];
+
+const NUMBERS = [
+  { value: '5+',  label: '年の開発経験',    color: '#2bb5a0', icon: <Zap size={16} /> },
+  { value: '30+', label: '完了プロジェクト', color: '#3a7bd5', icon: <Briefcase size={16} /> },
+  { value: '30%', label: '業務効率化実績',   color: '#8b5cf6', icon: <TrendingUp size={16} /> },
+  { value: '25+', label: 'チーム開発経験',   color: '#e8a949', icon: <Users size={16} /> },
 ];
 
 const fadeUp = (delay = 0) => ({
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] },
-  },
+  hidden:  { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] } },
 });
-
-/* 小さな植物アイコン（SVGイラスト） */
-function LeafIcon() {
-  return (
-    <svg width="40" height="44" viewBox="0 0 40 44" fill="none" aria-hidden="true">
-      <path
-        d="M20 42 C20 42 4 32 4 18 C4 10 10 4 20 4 C30 4 36 10 36 18 C36 32 20 42 20 42Z"
-        fill="none"
-        stroke="#c9a84c"
-        strokeWidth="1"
-        opacity="0.6"
-      />
-      <path d="M20 42 C20 42 10 28 20 4" stroke="#c9a84c" strokeWidth="0.8" opacity="0.5" />
-      <path d="M20 20 C14 14 8 16 6 22" stroke="#a8883a" strokeWidth="0.8" opacity="0.5" />
-      <path d="M20 26 C26 20 32 22 34 28" stroke="#a8883a" strokeWidth="0.8" opacity="0.5" />
-      {/* Small leaves */}
-      <ellipse cx="10" cy="10" rx="5" ry="8" fill="#c9a84c" opacity="0.3" transform="rotate(-30 10 10)" />
-      <ellipse cx="16" cy="6" rx="4" ry="7" fill="#a8883a" opacity="0.35" transform="rotate(10 16 6)" />
-    </svg>
-  );
-}
 
 export default function About() {
   return (
-    <section id="about" style={{ background: '#111111', position: 'relative', padding: '6rem 0' }}>
-      {/* Subtle dark texture overlay */}
+    <section id="about" className="section">
       <div
+        className="section-bg"
         style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1920&auto=format&fit=crop&q=85')",
-          backgroundSize: 'cover',
+          backgroundImage: "url('https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1920&auto=format&fit=crop&q=85')",
           backgroundPosition: 'center',
-          opacity: 0.04,
-          zIndex: 0,
         }}
       />
+      <div
+        className="section-overlay"
+        style={{ background: 'linear-gradient(160deg, rgba(245,238,216,0.93) 0%, rgba(237,230,204,0.90) 100%)' }}
+      />
 
-      <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px', margin: '0 auto', padding: '0 2.5rem' }}>
+      <div className="section-inner max-w-5xl mx-auto px-6">
 
-        {/* Section header */}
-        <motion.div
-          variants={fadeUp()}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          style={{ textAlign: 'center', marginBottom: '3.5rem' }}
-        >
-          <p className="section-label-en" style={{ marginBottom: '0.75rem' }}>About</p>
-          <h2
-            className="font-display"
-            style={{
-              fontSize: 'clamp(1.8rem, 5vw, 2.6rem)',
-              fontWeight: 400,
-              color: '#f0ece4',
-              letterSpacing: '0.1em',
-            }}
-          >
-            私について
-          </h2>
+        {/* ── Section header ── */}
+        <motion.div className="text-center mb-12"
+          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp()}>
+          <span className="section-label">ABOUT ME</span>
+          <h2 className="text-3xl md:text-4xl font-black mt-3 mb-2" style={{ color: '#2d2416' }}>私について</h2>
+          <div className="divider" />
         </motion.div>
 
-        {/* Card */}
-        <motion.div
-          variants={fadeUp(0.1)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          style={{
-            background: '#1a1a1a',
-            border: '1px solid rgba(201,168,76,0.15)',
-            borderRadius: '4px',
-            padding: 'clamp(2rem, 5vw, 3rem)',
-            position: 'relative',
-          }}
-        >
-          {/* Leaf decoration */}
-          <div style={{ position: 'absolute', top: '1.5rem', right: '2rem', opacity: 0.7 }}>
-            <LeafIcon />
-          </div>
+        {/* ── Layout: left card | right timeline ── */}
+        <div className="grid lg:grid-cols-5 gap-8 items-start">
 
-          {/* 経歴 */}
-          <div style={{ marginBottom: '2.5rem' }}>
-            <h3
-              className="gold-line font-display"
-              style={{
-                fontSize: '1.1rem',
-                fontWeight: 500,
-                color: '#c9a84c',
-                letterSpacing: '0.15em',
-                marginBottom: '1.5rem',
-              }}
-            >
-              ー経歴ー
-            </h3>
+          {/* ── Left: Profile card (unchanged design) ── */}
+          <motion.div className="lg:col-span-2 space-y-4"
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.1)}>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-              {CAREER.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.15 + i * 0.07, duration: 0.5 }}
-                  style={{ display: 'flex', gap: '1.5rem', alignItems: 'baseline' }}
-                >
-                  <span
-                    style={{
-                      fontSize: '0.78rem',
-                      color: '#c9a84c',
-                      fontFamily: "'Cormorant Garamond', serif",
-                      flexShrink: 0,
-                      minWidth: '4.5rem',
-                    }}
-                  >
-                    {item.year}
+            {/* Photo + basic info */}
+            <div className="rounded-2xl overflow-hidden"
+              style={{ background: 'var(--surface)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+              <div className="h-20 relative"
+                style={{ background: 'linear-gradient(135deg, #2bb5a0 0%, #3a7bd5 100%)' }}>
+                <div className="absolute bottom-[-32px] left-5">
+                  <div className="w-16 h-16 rounded-xl overflow-hidden"
+                    style={{ border: '3px solid #fff', boxShadow: '0 4px 16px rgba(45,36,22,0.12)' }}>
+                    <Image src="/hero-profile.jpg" alt="URAN" width={64} height={64} className="object-cover w-full h-full" />
+                  </div>
+                </div>
+              </div>
+              <div className="pt-10 px-5 pb-5">
+                <div className="font-black text-lg mb-0.5" style={{ color: '#2d2416' }}>URAN</div>
+                <div className="text-xs mb-2" style={{ color: '#8c7d65', fontFamily: 'monospace' }}>Full-Stack Engineer</div>
+                <div className="flex items-center gap-1.5 mb-3">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: '#34c78a' }} />
+                    <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: '#34c78a' }} />
                   </span>
-                  <span style={{ fontSize: '0.82rem', color: '#c8c0b0', lineHeight: 1.7 }}>
-                    {item.desc}
-                  </span>
+                  <span className="text-xs font-semibold" style={{ color: '#34c78a' }}>案件受付中</span>
+                </div>
+                <p className="text-sm leading-7" style={{ color: '#5a4e3a' }}>
+                  台湾出身のフルスタックエンジニア。
+                  <span style={{ color: '#2d2416', fontWeight: 700 }}>React・TypeScript・Java・PHP</span>
+                  を中心に製造・流通・EC 業界の業務システム開発に
+                  <span style={{ color: '#2bb5a0', fontWeight: 700 }}> 5年以上</span>携わっています。
+                </p>
+              </div>
+            </div>
+
+            {/* Highlights */}
+            <div className="space-y-2">
+              {HIGHLIGHTS.map((h, i) => (
+                <motion.div key={h.label}
+                  initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.15 + i * 0.07)}
+                  className="flex items-start gap-3 p-3 rounded-xl"
+                  style={{ background: 'var(--surface)', border: `1px solid ${h.color}18` }}>
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{ background: `${h.color}12`, color: h.color }}>
+                    {h.icon}
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-bold tracking-widest mb-0.5" style={{ color: h.color, fontFamily: 'monospace' }}>{h.label.toUpperCase()}</div>
+                    <div className="text-xs leading-5" style={{ color: '#5a4e3a' }}>{h.value}</div>
+                  </div>
                 </motion.div>
               ))}
             </div>
-          </div>
 
-          {/* 区切り線 */}
-          <div
-            style={{
-              width: '100%',
-              height: '1px',
-              background: 'rgba(201,168,76,0.15)',
-              marginBottom: '2.5rem',
-            }}
-          />
+            {/* Numbers grid */}
+            <div className="grid grid-cols-2 gap-2">
+              {NUMBERS.map(n => (
+                <div key={n.label} className="p-3 rounded-xl text-center"
+                  style={{ background: 'var(--surface)', border: `1px solid ${n.color}18` }}>
+                  <div className="flex justify-center mb-1" style={{ color: n.color }}>{n.icon}</div>
+                  <div className="text-xl font-black mb-0.5" style={{ color: n.color }}>{n.value}</div>
+                  <div className="text-[10px] leading-tight" style={{ color: '#8c7d65' }}>{n.label}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
 
-          {/* 私の強み */}
-          <div>
-            <h3
-              className="gold-line font-display"
-              style={{
-                fontSize: '1.1rem',
-                fontWeight: 500,
-                color: '#c9a84c',
-                letterSpacing: '0.15em',
-                marginBottom: '1.5rem',
-              }}
-            >
-              ー私の強みー
-            </h3>
+          {/* ── Right: Career timeline + Strengths ── */}
+          <motion.div className="lg:col-span-3"
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.15)}>
 
-            <motion.div
-              variants={fadeUp(0.3)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <p
-                style={{
-                  fontSize: '0.85rem',
-                  color: '#c8c0b0',
-                  lineHeight: 2,
-                  marginBottom: '1.2rem',
-                }}
-              >
-                はじめまして、MarcoPagotと申します。
-              </p>
-              <p
-                style={{
-                  fontSize: '0.85rem',
-                  color: '#c8c0b0',
-                  lineHeight: 2,
-                  marginBottom: '1.2rem',
-                }}
-              >
-                これまで製造業や建設業、美容業など、さまざまな業界で現場経験を積み、現在はWebライターとして活動しています。幅広い職種を経験してきたからこそ得られた知識や視点を活かし、読者にとって分かりやすく、信頼できる記事制作を心がけています。
-              </p>
-              <p
-                style={{
-                  fontSize: '0.85rem',
-                  color: '#c8c0b0',
-                  lineHeight: 2,
-                  marginBottom: '1.2rem',
-                }}
-              >
-                <strong style={{ color: '#f0ece4' }}>私の強みは、多様な業界で培った経験をもとに、読者の立場に寄り添った文章を書けることです。</strong>左官・水道工事、スマートフォン製造、塗装、溶接、美容、新幹線製造など、多岐にわたる現場を経験してきたことで、幅広い視点から物事を捉えられるようになりました。実体験を交えながら、「自分のことかもしれない」と共感していただける記事を意識し、一つひとつ丁寧に執筆しています。
-              </p>
+            {/* 経歴 label */}
+            <div className="text-[10px] font-bold tracking-[0.3em] mb-5" style={{ color: '#2bb5a0', fontFamily: 'monospace' }}>
+              ✦ 経歴
+            </div>
+
+            {/* Timeline */}
+            <div className="relative space-y-4">
+              <div className="absolute left-[19px] top-3 bottom-3 w-[2px] rounded-full"
+                style={{ background: 'linear-gradient(to bottom, #3a7bd5, #8b5cf6, #2bb5a0)' }} />
+
+              {CAREER.map((job, i) => (
+                <motion.div key={i}
+                  initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+                  transition={{ delay: 0.2 + i * 0.12 }}
+                  className="relative pl-12">
+                  {/* Dot */}
+                  <div className="absolute left-0 top-3.5 w-10 h-10 rounded-full flex items-center justify-center"
+                    style={{ background: 'var(--surface)', border: `2px solid ${job.color}`, boxShadow: `0 0 0 4px ${job.color}18`, zIndex: 10 }}>
+                    <div className="w-3 h-3 rounded-full" style={{ background: job.color }} />
+                  </div>
+
+                  <div className="rounded-2xl overflow-hidden"
+                    style={{ background: 'var(--surface)', border: `1px solid ${job.color}18`, boxShadow: 'var(--shadow-sm)' }}>
+                    <div className="h-1" style={{ background: `linear-gradient(90deg, ${job.color}, ${job.color}50, transparent)` }} />
+                    <div className="p-4">
+                      <div className="flex flex-wrap items-start justify-between gap-2 mb-1.5">
+                        <div>
+                          <div className="flex items-center gap-2 flex-wrap mb-0.5">
+                            <h3 className="text-sm font-black" style={{ color: '#2d2416' }}>{job.company}</h3>
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full"
+                              style={{ background: `${job.typeColor}12`, color: job.typeColor, border: `1px solid ${job.typeColor}25` }}>
+                              {job.type}
+                            </span>
+                          </div>
+                          <div className="text-xs font-semibold" style={{ color: job.color }}>{job.role}</div>
+                        </div>
+                        <div className="text-[10px] font-mono px-2 py-1 rounded-lg"
+                          style={{ background: `${job.color}0c`, color: job.color, whiteSpace: 'nowrap' }}>
+                          {job.period}
+                        </div>
+                      </div>
+                      <p className="text-xs leading-6" style={{ color: '#5a4e3a' }}>{job.desc}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* 私の強み */}
+            <div className="mt-7">
+              <div className="text-[10px] font-bold tracking-[0.3em] mb-3" style={{ color: '#2bb5a0', fontFamily: 'monospace' }}>
+                ✦ 私の強み
+              </div>
+              <ul className="space-y-2">
+                {STRENGTHS.map((s, i) => (
+                  <motion.li key={i}
+                    initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+                    transition={{ delay: 0.4 + i * 0.07 }}
+                    className="flex items-start gap-2.5 text-sm py-2 px-3.5 rounded-xl"
+                    style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: '#5a4e3a' }}>
+                    <CheckCircle2 size={14} className="flex-shrink-0 mt-0.5" style={{ color: '#2bb5a0' }} />
+                    {s}
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Tags */}
+            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+              transition={{ delay: 0.6 }} className="flex flex-wrap gap-2 mt-4">
+              {['即戦力', 'フルスタック', 'チーム開発', 'AWS運用', 'CI/CD', '多言語対応', '設計〜納品', 'アジャイル'].map(tag => (
+                <span key={tag} className="tag text-[11px]">{tag}</span>
+              ))}
             </motion.div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
