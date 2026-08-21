@@ -1,123 +1,107 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Mail } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
-  { href: '#hero',         ja: 'ホーム' },
-  { href: '#about',        ja: 'プロフィール' },
-  { href: '#skills',       ja: 'スキル' },
-  { href: '#experience',   ja: '経歴' },
-  { href: '#projects',     ja: '実績' },
-  { href: '#contact',      ja: '連絡先' },
+  { href: '#about',   label: '私について' },
+  { href: '#works',   label: '制作実績' },
+  { href: '#services',label: '対応業務' },
+  { href: '#skills',  label: 'スキル・料金' },
+  { href: '#contact', label: 'お問い合わせ' },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen]         = useState(false);
-  const [active, setActive]     = useState('');
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    const ids = NAV_LINKS.map(l => l.href.slice(1));
-    const obs = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) setActive('#' + e.target.id); }),
-      { rootMargin: '-40% 0px -55% 0px' },
-    );
-    ids.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
-    return () => obs.disconnect();
-  }, []);
-
-  const go = useCallback((href: string) => {
+  const go = (href: string) => {
     setOpen(false);
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
-  }, []);
+  };
 
   return (
     <>
       <motion.nav
-        initial={{ y: -64 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 right-0 z-50"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         style={{
-          background: scrolled ? 'rgba(245,238,216,0.97)' : 'rgba(245,238,216,0.85)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderBottom: scrolled ? '1px solid rgba(45,36,22,0.10)' : '1px solid transparent',
-          boxShadow: scrolled ? '0 2px 16px rgba(45,36,22,0.07)' : 'none',
-          transition: 'all 0.3s',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          background: scrolled ? 'rgba(10,10,10,0.95)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(16px)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(201,168,76,0.15)' : '1px solid transparent',
+          transition: 'all 0.4s',
         }}
       >
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
-
+        <div
+          style={{
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '0 2rem',
+            height: '64px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           {/* Logo */}
           <a
             href="#hero"
             onClick={e => { e.preventDefault(); go('#hero'); }}
-            className="flex items-center gap-2.5 flex-shrink-0"
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: '1.4rem',
+              fontWeight: 600,
+              color: '#f0ece4',
+              letterSpacing: '0.04em',
+              textDecoration: 'none',
+            }}
           >
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center font-black text-sm text-white"
-              style={{ background: 'linear-gradient(135deg, #2bb5a0, #3a7bd5)' }}
-            >
-              U
-            </div>
-            <span className="font-black text-base tracking-tight" style={{ color: '#2d2416' }}>URAN</span>
+            MarcoPagot
           </a>
 
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-1">
-            {NAV_LINKS.map(link => {
-              const isActive = active === link.href;
-              return (
-                <button
-                  key={link.href}
-                  onClick={() => go(link.href)}
-                  className="relative px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200"
-                  style={{ color: isActive ? '#2bb5a0' : '#5a4e3a' }}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="nav-pill"
-                      className="absolute inset-0 rounded-full"
-                      style={{ background: 'rgba(43,181,160,0.12)', border: '1px solid rgba(43,181,160,0.25)' }}
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{link.ja}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Right CTA */}
-          <div className="hidden md:flex items-center gap-3 flex-shrink-0">
-            <div className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: '#34c78a' }}>
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: '#34c78a' }} />
-                <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: '#34c78a' }} />
-              </span>
-              受付中
-            </div>
-            <a href="mailto:gold77chi11@gmail.com" className="btn-primary text-xs px-5 py-2">
-              <Mail size={13} />
-              お問い合わせ
-            </a>
+          {/* Desktop nav — hidden on mobile */}
+          <div className="hidden md:flex items-center gap-8">
+            {NAV_LINKS.map(link => (
+              <button
+                key={link.href}
+                onClick={() => go(link.href)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '0.78rem',
+                  letterSpacing: '0.08em',
+                  color: '#c8c0b0',
+                  transition: 'color 0.2s',
+                  padding: '0.25rem 0',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#c9a84c')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#c8c0b0')}
+              >
+                {link.label}
+              </button>
+            ))}
           </div>
 
           {/* Hamburger */}
           <button
-            className="md:hidden p-2 rounded-xl transition-colors"
-            style={{ color: '#5a4e3a' }}
+            className="md:hidden"
             onClick={() => setOpen(o => !o)}
             aria-label="Toggle menu"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#f0ece4', padding: '0.5rem' }}
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -128,57 +112,42 @@ export default function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-40 md:hidden"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="md:hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            style={{
+              position: 'fixed',
+              top: '64px',
+              left: 0,
+              right: 0,
+              zIndex: 49,
+              background: 'rgba(10,10,10,0.98)',
+              borderBottom: '1px solid rgba(201,168,76,0.15)',
+              backdropFilter: 'blur(16px)',
+            }}
           >
-            <div
-              className="absolute inset-0"
-              style={{ background: 'rgba(45,36,22,0.30)', backdropFilter: 'blur(4px)' }}
-              onClick={() => setOpen(false)}
-            />
-            <motion.div
-              className="absolute top-[64px] left-4 right-4 rounded-2xl overflow-hidden"
-              style={{
-                background: 'rgba(250,248,242,0.98)',
-                border: '1px solid rgba(45,36,22,0.10)',
-                boxShadow: '0 12px 40px rgba(45,36,22,0.14)',
-              }}
-              initial={{ y: -10, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -10, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="p-3 space-y-0.5">
-                {NAV_LINKS.map(link => {
-                  const isActive = active === link.href;
-                  return (
-                    <button
-                      key={link.href}
-                      onClick={() => go(link.href)}
-                      className="w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all"
-                      style={{
-                        background: isActive ? 'rgba(43,181,160,0.10)' : 'transparent',
-                        color: isActive ? '#2bb5a0' : '#5a4e3a',
-                      }}
-                    >
-                      {link.ja}
-                    </button>
-                  );
-                })}
-              </div>
-              <div className="px-4 pb-4 pt-1">
-                <div className="h-px mb-3" style={{ background: 'rgba(45,36,22,0.08)' }} />
-                <a
-                  href="mailto:gold77chi11@gmail.com"
-                  className="btn-primary w-full justify-center text-sm"
-                  style={{ display: 'flex' }}
-                  onClick={() => setOpen(false)}
+            <div style={{ padding: '1.5rem 2rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              {NAV_LINKS.map(link => (
+                <button
+                  key={link.href}
+                  onClick={() => go(link.href)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontSize: '0.9rem',
+                    letterSpacing: '0.08em',
+                    color: '#c8c0b0',
+                    textAlign: 'left',
+                    padding: '0.25rem 0',
+                  }}
                 >
-                  <Mail size={14} />
-                  メールで連絡する
-                </a>
-              </div>
-            </motion.div>
+                  {link.label}
+                </button>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
