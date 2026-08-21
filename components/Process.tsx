@@ -65,25 +65,28 @@ const fadeUp = (delay = 0) => ({
 
 export default function Process() {
   return (
-    <section id="process" className="section" style={{ background: '#f8fafc' }}>
-      <div className="absolute inset-0 z-0" style={{
-        backgroundImage: `url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1920&q=80&fit=crop')`,
-        backgroundSize: 'cover', backgroundPosition: 'center 45%',
-      }} />
-      <div className="absolute inset-0 z-0" style={{ background: 'rgba(248,250,252,0.93)' }} />
-      <div className="absolute top-0 left-0 right-0 h-px" style={{
-        background: 'linear-gradient(90deg, transparent, rgba(2,132,199,0.15), transparent)',
-      }} />
+    <section id="process" className="section">
+      <div
+        className="section-bg"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1920&auto=format&fit=crop&q=85')",
+          backgroundPosition: 'center 45%',
+        }}
+      />
+      <div
+        className="section-overlay"
+        style={{ background: 'linear-gradient(160deg, rgba(245,238,216,0.95) 0%, rgba(237,230,204,0.92) 100%)' }}
+      />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6">
+      <div className="section-inner container-wide">
         <motion.div className="text-center mb-14"
           initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp()}>
-          <p className="section-label justify-center">HOW IT WORKS</p>
-          <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3" style={{ color: '#0f172a' }}>制作の流れ</h2>
+          <span className="section-label">HOW IT WORKS</span>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 900, color: '#2d2416', marginTop: '0.75rem', marginBottom: '0.5rem' }}>制作の流れ</h2>
           <div className="divider" />
-          <p className="mt-5 text-sm max-w-lg mx-auto leading-7" style={{ color: '#64748b' }}>
-            「依頼したらどう進むのか」を明確にすることで、<br />
-            <span style={{ color: '#0f172a', fontWeight: 600 }}>初めてのご依頼でも安心して</span>プロジェクトを進められます。
+          <p style={{ marginTop: '1.25rem', fontSize: '0.88rem', color: '#8c7d65', lineHeight: 1.8, maxWidth: '500px', margin: '1.25rem auto 0' }}>
+            「依頼したらどう進むのか」を明確にすることで、
+            <span style={{ color: '#2d2416', fontWeight: 600 }}>初めてのご依頼でも安心して</span>プロジェクトを進められます。
           </p>
         </motion.div>
 
@@ -106,8 +109,7 @@ export default function Process() {
           {STEPS.map((step, i) => (
             <motion.div key={step.number}
               variants={fadeUp(i * 0.07)} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-40px' }}
-              className="rounded-2xl p-5 relative overflow-hidden"
-              style={{ background: '#ffffff', border: `1px solid ${step.color}12`, boxShadow: '0 2px 12px rgba(15,23,42,0.05)' }}>
+              className="card rounded-2xl p-5 relative overflow-hidden">
               {/* Top accent */}
               <div className="absolute top-0 left-0 right-0 h-[3px]"
                 style={{ background: `linear-gradient(90deg, ${step.color}, ${step.color}55, transparent)` }} />
@@ -126,17 +128,17 @@ export default function Process() {
                   <div>
                     <span className="text-[10px] font-black px-2 py-0.5 rounded font-mono"
                       style={{ background: `${step.color}10`, color: step.color }}>STEP {step.number}</span>
-                    <div className="flex items-center gap-1.5 mt-1 text-[11px]" style={{ color: '#94a3b8' }}>
+                    <div className="flex items-center gap-1.5 mt-1 text-[11px]" style={{ color: '#a89880' }}>
                       <Clock size={10} /><span style={{ fontFamily: 'monospace' }}>{step.duration}</span>
                     </div>
                   </div>
                 </div>
-                <h3 className="text-base font-black mb-0.5" style={{ color: '#1e293b' }}>{step.title}</h3>
-                <p className="text-[11px] font-mono mb-3" style={{ color: '#94a3b8' }}>{step.titleEn}</p>
-                <p className="text-sm leading-6 mb-3" style={{ color: '#475569' }}>{step.description}</p>
+                <h3 className="text-base font-black mb-0.5" style={{ color: '#2d2416' }}>{step.title}</h3>
+                <p className="text-[11px] font-mono mb-3" style={{ color: '#a89880' }}>{step.titleEn}</p>
+                <p className="text-sm leading-6 mb-3" style={{ color: '#5a4e3a' }}>{step.description}</p>
                 <ul className="space-y-1 mb-3">
                   {step.details.map((d, di) => (
-                    <li key={di} className="flex items-start gap-2 text-xs leading-5" style={{ color: '#64748b' }}>
+                    <li key={di} className="flex items-start gap-2 text-xs leading-5" style={{ color: '#8c7d65' }}>
                       <CheckCircle2 size={11} className="flex-shrink-0 mt-0.5" style={{ color: step.color }} />{d}
                     </li>
                   ))}
@@ -153,8 +155,8 @@ export default function Process() {
         {/* FAQ reassurance */}
         <motion.div className="rounded-2xl p-7"
           initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ background: '#ffffff', border: '1px solid rgba(2,132,199,0.12)', boxShadow: '0 2px 16px rgba(15,23,42,0.06)' }}>
-          <div className="text-[10px] font-bold tracking-widest mb-5 text-center" style={{ color: '#0284c7', fontFamily: 'monospace' }}>
+          style={{ background: 'var(--surface)', border: '1px solid rgba(43,181,160,0.15)', boxShadow: 'var(--shadow-sm)' }}>
+          <div className="text-[10px] font-bold tracking-widest mb-5 text-center" style={{ color: '#2bb5a0', fontFamily: 'monospace' }}>
             よくある不安・疑問
           </div>
           <div className="space-y-4">
@@ -162,16 +164,18 @@ export default function Process() {
               <motion.div key={i} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }} className="flex gap-4">
                 <div className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0 text-[10px] font-black mt-0.5"
-                  style={{ background: 'rgba(2,132,199,0.08)', color: '#0284c7' }}>Q</div>
+                  style={{ background: 'rgba(43,181,160,0.10)', color: '#2bb5a0' }}>Q</div>
                 <div>
-                  <div className="text-sm font-semibold mb-1" style={{ color: '#1e293b' }}>{faq.q}</div>
-                  <div className="text-xs leading-6" style={{ color: '#64748b' }}>→ {faq.a}</div>
+                  <div className="text-sm font-semibold mb-1" style={{ color: '#2d2416' }}>{faq.q}</div>
+                  <div className="text-xs leading-6" style={{ color: '#8c7d65' }}>→ {faq.a}</div>
                 </div>
               </motion.div>
             ))}
           </div>
           <div className="mt-6 text-center">
-            <a href="#contact" className="btn-primary inline-flex text-sm px-7 py-3">
+            <a href="#contact"
+              onClick={e => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+              className="btn-primary inline-flex text-sm px-7 py-3">
               <MessageSquare size={15} />まずは無料相談する
             </a>
           </div>

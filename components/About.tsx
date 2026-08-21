@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { MapPin, GraduationCap, Languages, Award, CheckCircle2, Zap, Briefcase, TrendingUp, Users } from 'lucide-react';
 
-/* ── Data (unchanged) ── */
 const CAREER = [
   {
     period: '2021.10 — 2024.03', company: '宏碁股份有限公司 (Acer Inc.)',
@@ -47,8 +46,8 @@ const NUMBERS = [
 ];
 
 const fadeUp = (delay = 0) => ({
-  hidden:  { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] } },
+  hidden:  { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] } },
 });
 
 export default function About() {
@@ -63,154 +62,222 @@ export default function About() {
       />
       <div
         className="section-overlay"
-        style={{ background: 'linear-gradient(160deg, rgba(245,238,216,0.93) 0%, rgba(237,230,204,0.90) 100%)' }}
+        style={{ background: 'linear-gradient(160deg, rgba(245,238,216,0.95) 0%, rgba(237,230,204,0.92) 100%)' }}
       />
 
-      <div className="section-inner max-w-5xl mx-auto px-6">
+      <div className="section-inner container-wide">
 
         {/* ── Section header ── */}
-        <motion.div className="text-center mb-12"
+        <motion.div
+          className="text-center mb-14"
           initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp()}>
           <span className="section-label">ABOUT ME</span>
-          <h2 className="text-3xl md:text-4xl font-black mt-3 mb-2" style={{ color: '#2d2416' }}>私について</h2>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 900, color: '#2d2416', marginTop: '0.75rem', marginBottom: '0.5rem' }}>
+            私について
+          </h2>
           <div className="divider" />
         </motion.div>
 
+        {/* ── Numbers bar ── */}
+        <motion.div
+          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.05)}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '1px',
+            background: 'var(--border)',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            marginBottom: '3.5rem',
+            boxShadow: 'var(--shadow-sm)',
+          }}
+        >
+          {NUMBERS.map((n, i) => (
+            <motion.div
+              key={n.label}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 + i * 0.08 }}
+              style={{
+                background: 'var(--surface)',
+                padding: 'clamp(1rem, 2.5vw, 1.75rem)',
+                textAlign: 'center',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem', color: n.color }}>{n.icon}</div>
+              <div style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2.2rem)', fontWeight: 900, color: n.color, lineHeight: 1 }}>{n.value}</div>
+              <div style={{ fontSize: '0.72rem', color: '#8c7d65', marginTop: '0.35rem', letterSpacing: '0.04em' }}>{n.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+
         {/* ── Layout: left card | right timeline ── */}
-        <div className="grid lg:grid-cols-5 gap-8 items-start">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: '2.5rem', alignItems: 'start' }}>
 
-          {/* ── Left: Profile card (unchanged design) ── */}
-          <motion.div className="lg:col-span-2 space-y-4"
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.1)}>
-
+          {/* ── Left: Profile card ── */}
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.1)}
+            style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+          >
             {/* Photo + basic info */}
-            <div className="rounded-2xl overflow-hidden"
-              style={{ background: 'var(--surface)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
-              <div className="h-20 relative"
-                style={{ background: 'linear-gradient(135deg, #2bb5a0 0%, #3a7bd5 100%)' }}>
-                <div className="absolute bottom-[-32px] left-5">
-                  <div className="w-16 h-16 rounded-xl overflow-hidden"
-                    style={{ border: '3px solid #fff', boxShadow: '0 4px 16px rgba(45,36,22,0.12)' }}>
-                    <Image src="/hero-profile.jpg" alt="URAN" width={64} height={64} className="object-cover w-full h-full" />
-                  </div>
+            <div className="card" style={{ overflow: 'hidden' }}>
+              <div style={{
+                height: '120px', position: 'relative',
+                background: 'linear-gradient(135deg, #2bb5a0 0%, #3a7bd5 50%, #8b5cf6 100%)',
+              }}>
+                {/* Office background hint */}
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  backgroundImage: "url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&auto=format&fit=crop&q=60')",
+                  backgroundSize: 'cover', backgroundPosition: 'center',
+                  opacity: 0.25,
+                }} />
+                <div className="absolute bottom-[-36px] left-5">
+                  <motion.div
+                    whileHover={{ scale: 1.08 }}
+                    style={{
+                      width: '72px', height: '72px', borderRadius: '14px', overflow: 'hidden',
+                      border: '3px solid #fff', boxShadow: '0 4px 20px rgba(45,36,22,0.18)',
+                    }}
+                  >
+                    <Image src="/hero-profile.jpg" alt="URAN" width={72} height={72} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                  </motion.div>
                 </div>
               </div>
-              <div className="pt-10 px-5 pb-5">
-                <div className="font-black text-lg mb-0.5" style={{ color: '#2d2416' }}>URAN</div>
-                <div className="text-xs mb-2" style={{ color: '#8c7d65', fontFamily: 'monospace' }}>Full-Stack Engineer</div>
-                <div className="flex items-center gap-1.5 mb-3">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: '#34c78a' }} />
-                    <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: '#34c78a' }} />
-                  </span>
-                  <span className="text-xs font-semibold" style={{ color: '#34c78a' }}>案件受付中</span>
+              <div style={{ padding: '2.8rem 1.4rem 1.4rem' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
+                  <div>
+                    <div style={{ fontWeight: 900, fontSize: '1.2rem', color: '#2d2416', lineHeight: 1.2 }}>URAN</div>
+                    <div style={{ fontSize: '0.7rem', color: '#8c7d65', fontFamily: 'monospace', letterSpacing: '0.12em' }}>FULL-STACK ENGINEER</div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{ position: 'relative', display: 'inline-flex', width: 8, height: 8 }}>
+                      <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: '#34c78a', opacity: 0.75, animation: 'pulse-dot 1.5s ease-out infinite' }} />
+                      <span style={{ position: 'relative', width: 8, height: 8, borderRadius: '50%', background: '#34c78a', display: 'inline-flex' }} />
+                    </span>
+                    <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#34c78a' }}>案件受付中</span>
+                  </div>
                 </div>
-                <p className="text-sm leading-7" style={{ color: '#5a4e3a' }}>
+                <p style={{ fontSize: '0.84rem', lineHeight: 1.85, color: '#5a4e3a' }}>
                   台湾出身のフルスタックエンジニア。
-                  <span style={{ color: '#2d2416', fontWeight: 700 }}>React・TypeScript・Java・PHP</span>
-                  を中心に製造・流通・EC 業界の業務システム開発に
-                  <span style={{ color: '#2bb5a0', fontWeight: 700 }}> 5年以上</span>携わっています。
+                  <strong style={{ color: '#2d2416' }}>React・TypeScript・Java・PHP</strong> を中心に製造・流通・EC 業界の業務システム開発に
+                  <strong style={{ color: '#2bb5a0' }}> 5年以上</strong>携わっています。
                 </p>
               </div>
             </div>
 
             {/* Highlights */}
-            <div className="space-y-2">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
               {HIGHLIGHTS.map((h, i) => (
                 <motion.div key={h.label}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.15 + i * 0.07)}
-                  className="flex items-start gap-3 p-3 rounded-xl"
-                  style={{ background: 'var(--surface)', border: `1px solid ${h.color}18` }}>
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ background: `${h.color}12`, color: h.color }}>
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.15 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                  style={{
+                    display: 'flex', alignItems: 'flex-start', gap: '0.75rem',
+                    padding: '0.75rem 1rem', borderRadius: '12px',
+                    background: 'var(--surface)', border: `1px solid ${h.color}18`,
+                    boxShadow: 'var(--shadow-sm)',
+                    transition: 'transform 0.2s, box-shadow 0.2s',
+                  }}
+                  whileHover={{ x: 4 }}
+                >
+                  <div style={{
+                    width: '30px', height: '30px', borderRadius: '8px', flexShrink: 0,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: `${h.color}12`, color: h.color,
+                  }}>
                     {h.icon}
                   </div>
                   <div>
-                    <div className="text-[10px] font-bold tracking-widest mb-0.5" style={{ color: h.color, fontFamily: 'monospace' }}>{h.label.toUpperCase()}</div>
-                    <div className="text-xs leading-5" style={{ color: '#5a4e3a' }}>{h.value}</div>
+                    <div style={{ fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.18em', color: h.color, fontFamily: 'monospace', marginBottom: '0.2rem' }}>{h.label.toUpperCase()}</div>
+                    <div style={{ fontSize: '0.8rem', lineHeight: 1.6, color: '#5a4e3a' }}>{h.value}</div>
                   </div>
                 </motion.div>
-              ))}
-            </div>
-
-            {/* Numbers grid */}
-            <div className="grid grid-cols-2 gap-2">
-              {NUMBERS.map(n => (
-                <div key={n.label} className="p-3 rounded-xl text-center"
-                  style={{ background: 'var(--surface)', border: `1px solid ${n.color}18` }}>
-                  <div className="flex justify-center mb-1" style={{ color: n.color }}>{n.icon}</div>
-                  <div className="text-xl font-black mb-0.5" style={{ color: n.color }}>{n.value}</div>
-                  <div className="text-[10px] leading-tight" style={{ color: '#8c7d65' }}>{n.label}</div>
-                </div>
               ))}
             </div>
           </motion.div>
 
           {/* ── Right: Career timeline + Strengths ── */}
-          <motion.div className="lg:col-span-3"
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.15)}>
-
-            {/* 経歴 label */}
-            <div className="text-[10px] font-bold tracking-[0.3em] mb-5" style={{ color: '#2bb5a0', fontFamily: 'monospace' }}>
-              ✦ 経歴
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp(0.18)}
+          >
+            <div style={{ fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.28em', color: '#2bb5a0', fontFamily: 'monospace', marginBottom: '1.25rem' }}>
+              ✦ 経歴タイムライン
             </div>
 
             {/* Timeline */}
-            <div className="relative space-y-4">
-              <div className="absolute left-[19px] top-3 bottom-3 w-[2px] rounded-full"
-                style={{ background: 'linear-gradient(to bottom, #3a7bd5, #8b5cf6, #2bb5a0)' }} />
-
+            <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <div className="timeline-line" />
               {CAREER.map((job, i) => (
                 <motion.div key={i}
-                  initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-                  transition={{ delay: 0.2 + i * 0.12 }}
-                  className="relative pl-12">
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 + i * 0.14, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ position: 'relative', paddingLeft: '3.25rem' }}
+                >
                   {/* Dot */}
-                  <div className="absolute left-0 top-3.5 w-10 h-10 rounded-full flex items-center justify-center"
-                    style={{ background: 'var(--surface)', border: `2px solid ${job.color}`, boxShadow: `0 0 0 4px ${job.color}18`, zIndex: 10 }}>
-                    <div className="w-3 h-3 rounded-full" style={{ background: job.color }} />
+                  <div className="timeline-dot" style={{ border: `2px solid ${job.color}`, boxShadow: `0 0 0 4px ${job.color}18` }}>
+                    <div style={{ width: 12, height: 12, borderRadius: '50%', background: job.color }} />
                   </div>
 
-                  <div className="rounded-2xl overflow-hidden"
-                    style={{ background: 'var(--surface)', border: `1px solid ${job.color}18`, boxShadow: 'var(--shadow-sm)' }}>
-                    <div className="h-1" style={{ background: `linear-gradient(90deg, ${job.color}, ${job.color}50, transparent)` }} />
-                    <div className="p-4">
-                      <div className="flex flex-wrap items-start justify-between gap-2 mb-1.5">
+                  <motion.div
+                    className="card"
+                    whileHover={{ x: 4 }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    <div style={{ height: '3px', background: `linear-gradient(90deg, ${job.color}, ${job.color}40, transparent)` }} />
+                    <div style={{ padding: '1rem 1.2rem' }}>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '0.5rem' }}>
                         <div>
-                          <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                            <h3 className="text-sm font-black" style={{ color: '#2d2416' }}>{job.company}</h3>
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-                              style={{ background: `${job.typeColor}12`, color: job.typeColor, border: `1px solid ${job.typeColor}25` }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.2rem' }}>
+                            <span style={{ fontSize: '0.88rem', fontWeight: 800, color: '#2d2416' }}>{job.company}</span>
+                            <span style={{
+                              fontSize: '0.65rem', fontWeight: 700, padding: '0.1rem 0.6rem', borderRadius: '999px',
+                              background: `${job.typeColor}12`, color: job.typeColor, border: `1px solid ${job.typeColor}25`,
+                            }}>
                               {job.type}
                             </span>
                           </div>
-                          <div className="text-xs font-semibold" style={{ color: job.color }}>{job.role}</div>
+                          <div style={{ fontSize: '0.78rem', fontWeight: 600, color: job.color }}>{job.role}</div>
                         </div>
-                        <div className="text-[10px] font-mono px-2 py-1 rounded-lg"
-                          style={{ background: `${job.color}0c`, color: job.color, whiteSpace: 'nowrap' }}>
+                        <div style={{
+                          fontSize: '0.65rem', fontFamily: 'monospace', padding: '0.25rem 0.6rem', borderRadius: '8px',
+                          background: `${job.color}0c`, color: job.color, whiteSpace: 'nowrap', alignSelf: 'flex-start',
+                        }}>
                           {job.period}
                         </div>
                       </div>
-                      <p className="text-xs leading-6" style={{ color: '#5a4e3a' }}>{job.desc}</p>
+                      <p style={{ fontSize: '0.78rem', lineHeight: 1.8, color: '#5a4e3a' }}>{job.desc}</p>
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               ))}
             </div>
 
-            {/* 私の強み */}
-            <div className="mt-7">
-              <div className="text-[10px] font-bold tracking-[0.3em] mb-3" style={{ color: '#2bb5a0', fontFamily: 'monospace' }}>
+            {/* 強み */}
+            <div style={{ marginTop: '2rem' }}>
+              <div style={{ fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.28em', color: '#2bb5a0', fontFamily: 'monospace', marginBottom: '0.85rem' }}>
                 ✦ 私の強み
               </div>
-              <ul className="space-y-2">
+              <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
                 {STRENGTHS.map((s, i) => (
                   <motion.li key={i}
-                    initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+                    initial={{ opacity: 0, x: -12 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
                     transition={{ delay: 0.4 + i * 0.07 }}
-                    className="flex items-start gap-2.5 text-sm py-2 px-3.5 rounded-xl"
-                    style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: '#5a4e3a' }}>
-                    <CheckCircle2 size={14} className="flex-shrink-0 mt-0.5" style={{ color: '#2bb5a0' }} />
+                    style={{
+                      display: 'flex', alignItems: 'flex-start', gap: '0.6rem',
+                      fontSize: '0.82rem', padding: '0.6rem 1rem', borderRadius: '10px',
+                      background: 'var(--surface)', border: '1px solid var(--border)',
+                      color: '#5a4e3a', lineHeight: 1.6,
+                    }}
+                  >
+                    <CheckCircle2 size={14} style={{ color: '#2bb5a0', flexShrink: 0, marginTop: '2px' }} />
                     {s}
                   </motion.li>
                 ))}
@@ -218,10 +285,13 @@ export default function About() {
             </div>
 
             {/* Tags */}
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-              transition={{ delay: 0.6 }} className="flex flex-wrap gap-2 mt-4">
+            <motion.div
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+              style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '1.25rem' }}
+            >
               {['即戦力', 'フルスタック', 'チーム開発', 'AWS運用', 'CI/CD', '多言語対応', '設計〜納品', 'アジャイル'].map(tag => (
-                <span key={tag} className="tag text-[11px]">{tag}</span>
+                <span key={tag} className="tag" style={{ fontSize: '0.72rem' }}>{tag}</span>
               ))}
             </motion.div>
           </motion.div>

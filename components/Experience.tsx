@@ -155,7 +155,7 @@ export default function Experience() {
         className="section-overlay"
         style={{ background: 'linear-gradient(160deg, rgba(237,230,204,0.93) 0%, rgba(232,225,198,0.90) 100%)' }}
       />
-      <div className="section-inner max-w-5xl mx-auto px-6">
+      <div className="section-inner container-wide">
 
         <motion.div className="text-center mb-14"
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
