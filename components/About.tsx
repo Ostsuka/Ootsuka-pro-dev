@@ -141,7 +141,7 @@ export default function About() {
                       border: '3px solid #fff', boxShadow: '0 4px 20px rgba(45,36,22,0.18)',
                     }}
                   >
-                    <Image src="/hero-profile.jpg" alt="URAN" width={72} height={72} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                    <Image src="/hero-profile-2.jpg" alt="URAN" width={72} height={72} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
                   </motion.div>
                 </div>
               </div>
