@@ -38,7 +38,7 @@ export default function Hero() {
       <motion.div
         className="section-bg"
         style={{
-          backgroundImage: "url('/hero-profile.jpg')",
+          backgroundImage: "url('/background.jpg')",
           backgroundPosition: 'center center',
           y: bgY,
           scale: 1.08,
