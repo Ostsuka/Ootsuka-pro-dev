@@ -14,10 +14,10 @@ const NAV_LINKS = [
   { href: '#contact',      ja: '連絡先' },
 ];
 
-/* ─── URAN brand logo SVG ─── */
-function UranLogo({ size = 32 }: { size?: number }) {
+/* ─── Shion brand logo SVG ─── */
+function ShionLogo({ size = 32 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="URAN logo">
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="大塚詩音 logo">
       {/* Outer ring */}
       <circle cx="20" cy="20" r="18" stroke="url(#logo-ring)" strokeWidth="1.5" />
       {/* Orbit arc */}
@@ -127,7 +127,7 @@ export default function Navbar() {
               whileHover={{ rotate: 15, scale: 1.1 }}
               transition={{ type: 'spring', stiffness: 300, damping: 18 }}
             >
-              <UranLogo size={36} />
+              <ShionLogo size={36} />
             </motion.div>
             <div style={{ lineHeight: 1.15 }}>
               <div style={{
@@ -139,7 +139,7 @@ export default function Navbar() {
                 textShadow: scrolled ? 'none' : '0 1px 12px rgba(0,0,0,0.45)',
                 transition: 'color 0.3s',
               }}>
-                URAN
+                大塚詩音
               </div>
               <div style={{
                 fontSize: '0.5rem',

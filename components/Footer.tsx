@@ -121,15 +121,15 @@ export default function Footer() {
                 fontWeight: 900, fontSize: '1rem', color: '#fff',
                 background: 'linear-gradient(135deg, #2bb5a0, #3a7bd5)',
                 boxShadow: '0 4px 12px rgba(43,181,160,0.30)',
-              }}>U</div>
+              }}>詩</div>
               <div>
-                <div style={{ fontWeight: 900, fontSize: '1.15rem', color: '#fff', letterSpacing: '0.06em' }}>URAN</div>
+                <div style={{ fontWeight: 900, fontSize: '1.15rem', color: '#fff', letterSpacing: '0.06em' }}>大塚詩音</div>
                 <div style={{ fontSize: '0.55rem', fontFamily: 'monospace', letterSpacing: '0.22em', color: '#8c7d65' }}>FULL-STACK ENGINEER</div>
               </div>
             </div>
 
             <p style={{ fontSize: '0.82rem', lineHeight: 1.85, color: '#a89880', marginBottom: '1.25rem' }}>
-              React・TypeScript・Java・PHP を中心に、フロントエンドからクラウド運用まで対応する台湾出身のフルスタックエンジニアです。
+              React・TypeScript・Java・PHP を中心に、フロントエンドからクラウド運用まで対応する埼玉県出身のフルスタックエンジニアです。
             </p>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.1rem' }}>
@@ -141,15 +141,15 @@ export default function Footer() {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', marginBottom: '1.25rem' }}>
-              <a href="mailto:gold77chi11@gmail.com"
+              <a href="mailto:shion.otsuka@example.com"
                 style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.8rem', color: '#a89880', textDecoration: 'none', transition: 'color 0.2s' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
                 onMouseLeave={e => (e.currentTarget.style.color = '#a89880')}
               >
-                <Mail size={14} style={{ color: '#3a7bd5', flexShrink: 0 }} />gold77chi11@gmail.com
+                <Mail size={14} style={{ color: '#3a7bd5', flexShrink: 0 }} />shion.otsuka@example.com
               </a>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.8rem', color: '#a89880' }}>
-                <MapPin size={14} style={{ color: '#8b5cf6', flexShrink: 0 }} />台北市 大安區（台湾）
+                <MapPin size={14} style={{ color: '#8b5cf6', flexShrink: 0 }} />埼玉県三郷市（〒341-0018）
               </div>
             </div>
 
@@ -242,10 +242,10 @@ export default function Footer() {
         <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)', marginBottom: '1.5rem' }} />
 
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
-          <p style={{ fontSize: '0.72rem', color: '#5a4e3a' }}>© 2026 URAN. All rights reserved.</p>
+          <p style={{ fontSize: '0.72rem', color: '#5a4e3a' }}>© 2026 大塚詩音. All rights reserved.</p>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.72rem', color: '#5a4e3a' }}>
-              Made with <Heart size={11} style={{ color: '#e86c5d', margin: '0 1px' }} /> in Taiwan
+              Made with <Heart size={11} style={{ color: '#e86c5d', margin: '0 1px' }} /> in Saitama
             </div>
             <motion.button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
