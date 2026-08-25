@@ -22,7 +22,7 @@ const inputCls: React.CSSProperties = {
 };
 
 const INFO_ITEMS = [
-  { icon: <Mail size={16} />,        label: 'メール',     value: 'shion.otsuka@example.com',        color: '#3a7bd5', href: 'mailto:shion.otsuka@example.com' },
+  { icon: <Mail size={16} />,        label: 'メール',     value: 'gold77chi11@gmail.com',        color: '#3a7bd5', href: 'mailto:gold77chi11@gmail.com' },
   { icon: <MapPin size={16} />,      label: '所在地',     value: '埼玉県三郷市（〒341-0018）',        color: '#8b5cf6', href: null },
   { icon: <Clock size={16} />,       label: '対応時間',   value: '平日 9:00〜18:00（JST）',           color: '#2bb5a0', href: null },
   { icon: <MessageCircle size={16} />,label: '返信目安',  value: '24 時間以内にご返信',               color: '#e8a949', href: null },
@@ -184,7 +184,7 @@ export default function Contact() {
                     <p style={{ fontSize: '0.8rem', color: '#5a4e3a', lineHeight: 1.85 }}>
                       ポートフォリオサイトへのご訪問ありがとうございます。<br />
                       お仕事のご依頼・ご相談はこちらのフォームからどうぞ。<br />
-                      メール：<a href="mailto:shion.otsuka@example.com" style={{ color: '#2bb5a0', fontWeight: 700 }}>shion.otsuka@example.com</a>
+                      メール：<a href="mailto:gold77chi11@gmail.com" style={{ color: '#2bb5a0', fontWeight: 700 }}>gold77chi11@gmail.com</a>
                     </p>
                   </div>
 
