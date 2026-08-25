@@ -141,12 +141,12 @@ export default function Footer() {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', marginBottom: '1.25rem' }}>
-              <a href="mailto:shion.otsuka@example.com"
+              <a href="mailto:gold77chi11@gmail.com"
                 style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.8rem', color: '#a89880', textDecoration: 'none', transition: 'color 0.2s' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
                 onMouseLeave={e => (e.currentTarget.style.color = '#a89880')}
               >
-                <Mail size={14} style={{ color: '#3a7bd5', flexShrink: 0 }} />shion.otsuka@example.com
+                <Mail size={14} style={{ color: '#3a7bd5', flexShrink: 0 }} />gold77chi11@gmail.com
               </a>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.8rem', color: '#a89880' }}>
                 <MapPin size={14} style={{ color: '#8b5cf6', flexShrink: 0 }} />埼玉県三郷市（〒341-0018）
