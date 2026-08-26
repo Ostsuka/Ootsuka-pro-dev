@@ -2,12 +2,12 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'URAN — Full-Stack Engineer Portfolio',
+  title: '大塚詩音 — Full-Stack Engineer Portfolio',
   description:
-    'React・TypeScript・Java（Spring Boot）・PHP（Laravel）・AWS を用いた業務システム開発に5年以上携わるフルスタックエンジニア URAN のポートフォリオ。',
+    'React・TypeScript・Java（Spring Boot）・PHP（Laravel）・AWS を用いた業務システム開発に5年以上携わるフルスタックエンジニア 大塚詩音 のポートフォリオ。',
   keywords: ['フルスタックエンジニア', 'React', 'TypeScript', 'Java', 'Spring Boot', 'Laravel', 'AWS', 'Docker', 'NestJS'],
   openGraph: {
-    title: 'URAN — Full-Stack Engineer Portfolio',
+    title: '大塚詩音 — Full-Stack Engineer Portfolio',
     description: 'Full-Stack Engineer specializing in React, TypeScript, Java Spring Boot, PHP Laravel, and AWS.',
     type: 'website',
   },

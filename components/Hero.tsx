@@ -156,7 +156,7 @@ export default function Hero() {
             fontFamily: "'Noto Sans JP', 'Inter', sans-serif",
           }}
         >
-          URAN
+          大塚詩音
         </motion.h1>
 
         <motion.div

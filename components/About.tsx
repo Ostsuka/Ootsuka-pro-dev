@@ -25,10 +25,10 @@ const CAREER = [
 ];
 
 const HIGHLIGHTS = [
-  { icon: <MapPin size={14} />,        label: '所在地',   value: '台北市 大安區（台湾）',                                    color: '#3a7bd5' },
-  { icon: <GraduationCap size={14} />, label: '最終学歴', value: '淡江大学 情報工学科 学士（2021年卒）',                      color: '#8b5cf6' },
-  { icon: <Languages size={14} />,     label: '語学力',   value: '中国語（ネイティブ）・日本語（ビジネス）・英語（技術読解）', color: '#2bb5a0' },
-  { icon: <Award size={14} />,         label: '資格',     value: '基本情報技術者試験 合格（2023年）',                         color: '#e8a949' },
+  { icon: <MapPin size={14} />,        label: '所在地',   value: '埼玉県三郷市早稲田5丁目5番地13',                              color: '#3a7bd5' },
+  { icon: <GraduationCap size={14} />, label: '生年月日', value: '2000年01月11日',                                              color: '#8b5cf6' },
+  { icon: <Languages size={14} />,     label: '語学力',   value: '日本語（ネイティブ）・英語（技術読解）',                       color: '#2bb5a0' },
+  { icon: <Award size={14} />,         label: '性別',     value: '男性',                                                        color: '#e8a949' },
 ];
 
 const STRENGTHS = [
@@ -141,14 +141,14 @@ export default function About() {
                       border: '3px solid #fff', boxShadow: '0 4px 20px rgba(45,36,22,0.18)',
                     }}
                   >
-                    <Image src="/hero-profile-2.jpg" alt="URAN" width={72} height={72} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                    <Image src="/hero-profile-2.jpg" alt="大塚詩音" width={72} height={72} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
                   </motion.div>
                 </div>
               </div>
               <div style={{ padding: '2.8rem 1.4rem 1.4rem' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
                   <div>
-                    <div style={{ fontWeight: 900, fontSize: '1.2rem', color: '#2d2416', lineHeight: 1.2 }}>URAN</div>
+                    <div style={{ fontWeight: 900, fontSize: '1.2rem', color: '#2d2416', lineHeight: 1.2 }}>大塚詩音</div>
                     <div style={{ fontSize: '0.7rem', color: '#8c7d65', fontFamily: 'monospace', letterSpacing: '0.12em' }}>FULL-STACK ENGINEER</div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -160,7 +160,7 @@ export default function About() {
                   </div>
                 </div>
                 <p style={{ fontSize: '0.84rem', lineHeight: 1.85, color: '#5a4e3a' }}>
-                  台湾出身のフルスタックエンジニア。
+                  埼玉県出身のフルスタックエンジニア。
                   <strong style={{ color: '#2d2416' }}>React・TypeScript・Java・PHP</strong> を中心に製造・流通・EC 業界の業務システム開発に
                   <strong style={{ color: '#2bb5a0' }}> 5年以上</strong>携わっています。
                 </p>
