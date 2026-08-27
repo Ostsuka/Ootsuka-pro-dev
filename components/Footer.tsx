@@ -155,7 +155,7 @@ export default function Footer() {
 
             <div style={{ display: 'flex', gap: '0.55rem' }}>
               {[
-                { href: 'https://github.com/', icon: <GitBranch size={14} />, label: 'GitHub' },
+                // { href: 'https://github.com/', icon: <GitBranch size={14} />, label: 'GitHub' },
                 { href: 'https://twitter.com/', icon: <Globe size={14} />, label: 'Web' },
               ].map((s, i) => (
                 <a key={i} href={s.href} target="_blank" rel="noopener noreferrer"
