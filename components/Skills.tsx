@@ -62,8 +62,8 @@ const CATEGORIES = [
   },
 ];
 
-const SOFTWARES = ['React', 'Next.js', 'TypeScript', 'Node.js', 'NestJS', 'Spring Boot', 'Laravel', 'PHP', 'Java',
-  'PostgreSQL', 'MySQL', 'Redis', 'AWS', 'Docker', 'GitHub Actions', 'Tailwind CSS', 'Figma'];
+const SOFTWARES = ['HTML5','React', 'Next.js', 'TypeScript','JavaScript', 'Node.js','Python', 'NestJS', 'Spring Boot', 'Laravel', 'PHP', 'Java',
+  'PostgreSQL', 'MySQL', 'AWS', 'Docker', 'GitHub', 'SCSS', 'Figma','Canva','Adobe Photoshop','Wordpress'];
 
 const TAG_COLORS = ['#3a7bd5','#2bb5a0','#e86c5d','#8b5cf6','#e8a949','#34c78a'];
 
@@ -269,7 +269,7 @@ export default function Skills() {
                 ✦ 稼働時間
               </div>
               <div style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', fontWeight: 900, color: '#2d2416', marginBottom: '0.3rem' }}>
-                週 30 時間
+                週 45 時間
               </div>
               <p style={{ fontSize: '0.75rem', color: '#8c7d65' }}>案件に応じて柔軟に対応可能</p>
             </motion.div>
