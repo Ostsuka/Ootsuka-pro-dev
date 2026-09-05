@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const CATEGORIES = [
   {
     id: 'fe', label: 'フロントエンド', labelEn: 'Frontend',
-    color: '#3a7bd5', bg: 'linear-gradient(135deg, #3a7bd5, #60a5fa)', icon: '⚛',
+    color: '#3a7bd5', bg: 'linear-gradient(135deg, #3a7bd5, #60a5fa)', icon: '💚',
     skills: [
       { name: 'HTML5',      level: 90, years: '8年', color: '#0ea5e3' },
       { name: 'SCSS',      level: 90, years: '8年', color: '#0ea5e1' },
@@ -16,7 +16,7 @@ const CATEGORIES = [
   },
   {
     id: 'be', label: 'バックエンド', labelEn: 'Backend',
-    color: '#e86c5d', bg: 'linear-gradient(135deg, #e86c5d, #f97316)', icon: '⚙',
+    color: '#e86c5d', bg: 'linear-gradient(135deg, #e86c5d, #f97316)', icon: '❤️',
     skills: [
       { name: 'Node.js',      level: 85, years: '4年', color: '#e11d21' },
       { name: 'Python',      level: 85, years: '6年', color: '#e11d76' },
@@ -27,7 +27,7 @@ const CATEGORIES = [
   },
   {
     id: 'db', label: 'データベース', labelEn: 'Database',
-    color: '#2bb5a0', bg: 'linear-gradient(135deg, #2bb5a0, #34c78a)', icon: '🗄',
+    color: '#2bb5a0', bg: 'linear-gradient(135deg, #2bb5a0, #34c78a)', icon: '❄️',
     skills: [
       { name: 'MySQL',      level: 85, years: '3年', color: '#2213eb' },
       { name: 'MongoDB', level: 83, years: '4年', color: '#1d4ed8' },
@@ -50,7 +50,7 @@ const CATEGORIES = [
   },
     {
     id: 'design', label: 'デザイン', labelEn: 'Infrastructure',
-    color: '#e8a153', bg: 'linear-gradient(573deg, #e8a333, #f59e0b)', icon: '☁',
+    color: '#e8a153', bg: 'linear-gradient(573deg, #e8a333, #f59e0b)', icon: '🌸',
     skills: [
       { name: 'Figma',            level: 86, years: '4年', color: '#d74242' },
       { name: 'Canva',         level:95, years: '4年', color: '#0886c7' },
